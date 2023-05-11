@@ -29,8 +29,7 @@ h1 {
     margin-bottom: 20px;
 }
 
-nav {
-    
+nav { 
     width: 100%;
     height: 200px;
     display: flex;
@@ -42,7 +41,10 @@ nav {
 }
 
 nav a {
+    height: 50px;
+    width: 200px;
     margin: 0 10px;
+    font-size: 20px;
     color: #333;
     text-decoration: none;
     background: #FDFC47;  /* fallback for old browsers */
@@ -89,4 +91,66 @@ h2 {
     text-align:left;
     font-size: 200%;
     color: white;
+}
+
+p{
+    color:white
+}
+.prueba{
+    font-size: 150%;
+    color:white
+} 
+
+.cargar{
+    height: 50px;
+    width: 200px;
+    color: #333;
+    text-decoration: none;
+    background: #FDFC47;  /* fallback for old browsers */
+        background: -webkit-linear-gradient(to right, #24FE41, #FDFC47);  /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(90deg, #020024 0%, #090979 35%, #00d4ff 100%); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        color: white;
+        text-decoration: none;
+        border-radius: .9rem;   
+        margin-bottom: 20px;
+}
+
+.cargar2{
+    height: 50px;
+    width: 200px;
+    color: #333;
+    text-decoration: none;
+    background: #FDFC47;  /* fallback for old browsers */
+        background: -webkit-linear-gradient(to right, #24FE41, #FDFC47);  /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(90deg, #020024 0%, #090979 35%, #00d4ff 100%); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        color: white;
+        text-decoration: none;
+        border-radius: .9rem;   
+        margin-bottom: 20px;
+}
+
+.cargar3{
+    height: 50px;
+    width: 200px;
+    color: #333;
+    text-decoration: none;
+    background: #FDFC47;  /* fallback for old browsers */
+        background: -webkit-linear-gradient(to right, #24FE41, #FDFC47);  /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(90deg, #020024 0%, #090979 35%, #00d4ff 100%); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        color: white;
+        text-decoration: none;
+        border-radius: .9rem;   
+        margin-bottom: 20px;
+}
+
+.prueba::after{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 200%;
+    content: '';
+    background: linear-gradient(90deg, #212529 0%, #343a40 35%, #495057 100%);
+    filter: blur(20px);
+    z-index: -1;
 }
