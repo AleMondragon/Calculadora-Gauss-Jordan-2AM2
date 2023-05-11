@@ -205,6 +205,16 @@ nav :hover{
     font-style: arial;
     padding: 20px;
     text-align: justify;
+}
 
-
+.prueba::after{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 200%;
+    content: '';
+    background: linear-gradient(90deg, #212529 0%, #343a40 35%, #495057 100%);
+    filter: blur(20px);
+    z-index: -1;
 }
