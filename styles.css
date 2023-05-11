@@ -207,7 +207,7 @@ nav :hover{
     text-align: justify;
 }
 
-.prueba::after{
+::after{
     position: absolute;
     top: 0px;
     left: 0px;
