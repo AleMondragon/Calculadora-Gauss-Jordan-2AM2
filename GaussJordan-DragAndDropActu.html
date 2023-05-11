@@ -2,11 +2,26 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Gauss-Jordan</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Gauss Jordan</title>
+    <!--Link al css, es necesario descargar el archivo css para que la página cargue con los archivos-->
+       <link rel="stylesheet" href="diseñoprovi.css">
 </head>
 <body>
-    <h1>Sistema de ecuaciones lineales</h1>
-    <form>
+    <div class="PRINCIPAL">
+        <div class="inicio">
+            <!--Titulo-->
+            <h1>Calculadora Gauss Jordan</h1>
+            <div class="encabezado">
+                <!----Barra de navegacion -->
+                <nav>
+                    <a href="index.html">Inicio </a>
+                        <a href="Introducir.html">Introducir Matriz</a>
+                        <a href = "GaussJordan-DragAndDropActu.html">Cargar Matriz</a> </a>
+                </nav>
+            </div>
+        <form>
         <label for="file-input">Selecciona un archivo de texto:</label>
         <input type="file" id="file-input" name="file-input"><br><br>
         <button type="button" onclick="loadFile()">Cargar archivo</button>
@@ -14,10 +29,10 @@
     <br>
     <textarea id="matrix-text" rows="10" cols="50"></textarea>
     <br>
-    <button type="button" onclick="solve()">Resolver</button>
-    <button type="button" onclick="clearMatrix()">Borrar matriz</button>
+    <button type="button" onclick="solve()">Calcula</button>
+    <button type="button" onclick="clearMatrix()">Limpia</button>
     <br>
-    <h2>Solución</h2>
+    <h2>Resultado</h2>
     <p id="result"></p>
     <script>
     function loadFile() {
