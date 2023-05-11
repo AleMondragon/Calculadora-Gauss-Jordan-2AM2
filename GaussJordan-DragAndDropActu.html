@@ -17,21 +17,25 @@
                 <!----Barra de navegacion -->
                 <nav>
                     <a href="index.html">Inicio </a>
-                        <a href="Introducir.html">Introducir Matriz</a>
+                        <a href="Introducir.html" ">Introducir Matriz</a>
                         <a href = "GaussJordan-DragAndDropActu.html">Cargar Matriz</a> </a>
                 </nav>
             </div>
         <form>
+        <div class="prueba">
+        <span>
         <label for="file-input">Selecciona un archivo de texto:</label>
         <input type="file" id="file-input" name="file-input"><br><br>
-        <button type="button" onclick="loadFile()">Cargar archivo</button>
+        <button class="cargar" type="button" onclick="loadFile()">Cargar archivo</button>
     </form>
     <br>
     <textarea id="matrix-text" rows="10" cols="50"></textarea>
     <br>
-    <button type="button" onclick="solve()">Calcula</button>
-    <button type="button" onclick="clearMatrix()">Limpia</button>
+    <button class="cargar2" type="button" onclick="solve()">Calcula</button>
+    <button class="cargar3" type="button" onclick="clearMatrix()">Limpiar</button>
     <br>
+</span>
+</div>
     <h2>Resultado</h2>
     <p id="result"></p>
     <script>
