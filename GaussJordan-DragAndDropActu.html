@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Gauss-Jordan</title>
+</head>
+<body>
+    <h1>Sistema de ecuaciones lineales</h1>
+    <form>
+        <label for="file-input">Selecciona un archivo de texto:</label>
+        <input type="file" id="file-input" name="file-input"><br><br>
+        <button type="button" onclick="loadFile()">Cargar archivo</button>
+    </form>
+    <br>
+    <textarea id="matrix-text" rows="10" cols="50"></textarea>
+    <br>
+    <button type="button" onclick="solve()">Resolver</button>
+    <button type="button" onclick="clearMatrix()">Borrar matriz</button>
+    <br>
+    <h2>Solución</h2>
+    <p id="result"></p>
+    <script>
+    function loadFile() {
+        const input = document.getElementById("file-input");
+        const file = input.files[0];
+        const reader = new FileReader();
+        reader.onload = function(event) {
+            const content = event.target.result;
+            document.getElementById("matrix-text").value = content;
+        };
+        reader.readAsText(file);
+    }
+
+    function solve() {
+        const content = document.getElementById("matrix-text").value;
+        const rows = content.trim().split("\n");
+        let matrix = [];
+        for (let i = 0; i < rows.length; i++) {
+            let values = rows[i].trim().split(/\s+/).map(parseFraction);
+            matrix.push(values);
+        }
+        let result;
+        try {
+            result = gaussJordan(matrix);
+            if (result) {
+                let html = "";
+                for (let i = 0; i < result.length; i++) {
+                    html += `x<sub>${i+1}</sub> = ${result[i].toString()}<br>`;
+                }
+                document.getElementById("result").innerHTML = html;
+            } else {
+                throw new Error("No tiene solución");
+            }
+        } catch (error) {
+            document.getElementById("result").innerHTML = "La matriz no es válida o no tiene solución.";
+        }
+    }
+
+    function clearMatrix() {
+        document.getElementById("matrix-text").value = "";
+    }
+
+    function parseFraction(str) {
+        if (str === "") {
+            return new Fraction(0, 1);
+        }
+        let parts = str.split("/");
+        if (parts.length === 1) {
+            return new Fraction(parseInt(parts[0]), 1);
+        }
+        return new Fraction(parseInt(parts[0]), parseInt(parts[1]));
+    }
+    function gaussJordan(matrix) {
+    let rows = matrix.length;
+    let cols = matrix[0].length;
+    for (let i = 0; i < rows; i++) {
+        let pivot = matrix[i][i];
+        for (let j = i + 1; j < rows; j++) {
+            let factor = matrix[j][i].div(pivot);
+            for (let k = i; k < cols; k++) {
+                matrix[j][k] = matrix[j][k].sub(matrix[i][k].mul(factor));
+            }
+        }
+    }
+    for (let i = rows - 1; i >= 0; i--) {
+        for (let j = i - 1; j >= 0; j--) {
+                let factor = matrix[j][i].div(matrix[i][i]);
+                for (let k = i; k < cols; k++) {
+                    matrix[j][k] = matrix[j][k].sub(matrix[i][k].mul(factor));
+                }
+            }
+        }
+        let result = [];
+        for (let i = 0; i < rows; i++) {
+            if (matrix[i][i].numerator === 0) {
+                return null; // La matriz no tiene solución
+            }
+            let value = matrix[i][cols - 1].div(matrix[i][i]);
+            result.push(value);
+        }
+        return result;
+    }
+
+    class Fraction {
+        constructor(numerator, denominator) {
+            if (denominator === 0) {
+                throw new Error("El denominador no puede ser cero");
+            }
+            if (denominator < 0) {
+                numerator = -numerator;
+                denominator = -denominator;
+            }
+            let gcd = Fraction.gcd(Math.abs(numerator), denominator);
+            this.numerator = numerator / gcd;
+            this.denominator = denominator / gcd;
+        }
+
+        add(other) {
+            let numerator = this.numerator * other.denominator + other.numerator * this.denominator;
+            let denominator = this.denominator * other.denominator;
+            return new Fraction(numerator, denominator);
+        }
+
+        sub(other) {
+            let numerator = this.numerator * other.denominator - other.numerator * this.denominator;
+            let denominator = this.denominator * other.denominator;
+            return new Fraction(numerator, denominator);
+        }
+
+        mul(other) {
+            let numerator = this.numerator * other.numerator;
+            let denominator = this.denominator * other.denominator;
+            return new Fraction(numerator, denominator);
+        }
+
+        div(other) {
+            if (other.numerator === 0) {
+                throw new Error("No se puede dividir entre cero");
+            }
+            let numerator = this.numerator * other.denominator;
+            let denominator = this.denominator * other.numerator;
+            return new Fraction(numerator, denominator);
+        }
+
+        toString() {
+            if (this.denominator === 1) {
+                return this.numerator.toString();
+            }
+            return `${this.numerator}/${this.denominator}`;
+        }
+
+        static gcd(a, b) {
+            if (b === 0) {
+                return a;
+            }
+            return Fraction.gcd(b, a % b);
+        }
+    }
+    </script>
+</body>
+</html>
