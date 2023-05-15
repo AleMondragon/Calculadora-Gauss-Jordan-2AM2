@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Gauss Jordan</title>
+    <link rel="stylesheet" href="/css/styles2.css">
+</head>
+<body>
+    <div class="PRINCIPAL">
+        <div class="inicio">
+            <!--Titulo-->
+            <h1>Calculadora Gauss Jordan</h1>
+            <div class="encabezado">
+                <!----Barra de navegacion -->
+                <nav>
+                    <a href="index.html">Inicio</a>
+                    <a href="D&D.html">Cargar Matriz</a>
+                    <a href="Manual.html">Introducir Matriz</a>
+                </nav>
+            </div>
+            <!--División principal-->
+            <div class="main">
+                    <!--Caja Drag and Drop-->
+                <div class="infosec1">
+                    <h2>Coloca aqui tu archivo .txt</h2>
+                        
+                    <section class="dragdrop" ondragover="event.preventDefault()" ondrop="dropHandler(event)">
+                        <!--Aqui se lee el txt y se edita-->
+                        <textarea id="dragdroptxt"></textarea>
+                    </section>
+                    <span>
+                        
+                       <!--Boton funcional  que limpia el txt-->
+                            <a class="boton2" href="javascript:void(0)" onclick="borrar()">Limpiar</a>
+                            <!--Este boton tiene que realizar el calculo de la matriz (Aún no funcional)-->
+                            <a class="boton2" href="#" onclick="calcular()">Calcula</a>
+                            <a class="boton2" href="#" onclick="seleccionarArchivo()">Elige txt</a>
+
+                            <!-- Input oculto para seleccionar el archivo -->
+                            <input type="file" id="inputArchivo" style="display: none" />
+                     
+                    </span>
+                </div>
+                        
+                <div class="infosec2">
+                    <h2>Matriz Resultado</h2>
+                        
+                    <section class="mresultante">
+                        <!--Aquí se tiene que mostrar la matriz resultado-->
+                        <textarea id="resultado"></textarea>
+                    </section>
+                    
+                        <span>
+                            <a class="boton2" href="#" onclick="finalizar()">Finalizar</a>
+                            <!--Este boton deberia de borrar todo, tanto la caja donde se introduce la matriz y la matriz resultante-->
+                        </span>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script  src="/js/dd.js">
+        
+    </script>
+</body>
+</html>
+
+sr

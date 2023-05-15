@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Gauss Jordan</title>
+    <!--Link al css, es necesario descargar el archivo css para que la página cargue con los archivos-->
+    <link rel="stylesheet" href="/css/styles3.css">
+</head>
+<body>
+    <div class="PRINCIPAL">
+        <div class="inicio">
+            <h1>Calculadora Gauss Jordan</h1>
+            <div class="encabezado">
+                <nav>
+                    <!--Navegación-->
+                    <a href="">Inicio</a>
+                    <a href="D&D.html">Cargar Matriz</a>
+                    <a href="Manual.html">Introducir Matriz</a>
+                </nav>
+            </div>
+            <div class="main">
+                <!--Caja Principal-->
+                 <div class="infosec1">
+                    <h2>Introduce el numero de columnas y filas manualmente</h2>
+                    <form>
+                        <label for="rows">Agregar Filas: </label>
+                        <input type="number" id="filas" name="filas" min="1"><br><br>
+                        <label for="cols">Agregar Columnas:</label>
+                        <input type="number" id="columnas" name="columnas" min="1"><br><br>
+                        <button type="button" onclick=" crearTabla()">Validar matriz</button>
+                    </form>
+                    <br>
+                    <table id="matriz"></table>
+                    <br>
+                     <span class="calculos">
+                        <a class="boton1" href="#" onclick="calcular()">Calcular</a>
+                        <a  class="boton2" href="#" onclick="borrarNumeros()">Borrar</a>
+                      </span>
+                 </div>
+                 <div class="infosec2">
+                    <h2>Matriz Resultado</h2>
+                    <section class="mresultante">
+                        <!--Aquí se tiene que mostrar la matriz resultado-->
+                        <table id="tablaResultado"></table>
+                    </section>
+                    <span>
+                        <a class="boton1" href="#" onclick="finalizar()">Finalizar</a>
+                        <!--Este boton deberia de borrar todo, tanto la caja donde se introduce la matriz y la matriz resultante-->
+                    </span>
+                 </div>                
+             </div>             
+        </div>                                 
+    </div>
+    <script src="/js/manual.js"></script>
+</body>
+</html>
