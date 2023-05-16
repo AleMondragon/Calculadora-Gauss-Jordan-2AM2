@@ -258,4 +258,3 @@ function borrarDatos() {
   var tablaResultado = document.getElementById("tablaResultado");
   tablaResultado.innerHTML = "";
 }
-

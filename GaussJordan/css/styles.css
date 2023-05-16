@@ -1,8 +1,8 @@
 /*sE DEFINE EL COLOR DEL CUERPO */
 body {
     background-color: black;
-    width: 1890px;
-    height: 1500px;
+    width: 1600px;
+    height: 1200px;
     padding: 0px;
     position: relative;
   }
@@ -100,10 +100,10 @@ nav{
 h1 {
     display: block;
     text-align: center;
-    font-size: 2em;
+    font-size: 4em;
     margin-top: 0px;
-    font-weight: bold;
-    color: white;
+    font-family: 'DM Sans', sans-serif;
+    color: black;
     margin-top: 50px;
 }
 
@@ -128,10 +128,39 @@ nav{
     justify-content: space-evenly;
     align-items: center;
     padding: 10px;
+    position: relative;
+    font-family: 'DM Sans', sans-serif;
+    color: black;
 
 
 }
-
+nav::after {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    content: '';
+    background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(116, 57, 156, 0.8) 30%, rgba(255, 255, 255, 0) 70%);
+    background-size: 200% 100%;
+    background-position: -100% 0;
+    animation: slide 5s linear infinite;
+    filter: blur(20px);
+    z-index: -1;
+  }
+  
+  @keyframes slide {
+    0% {
+      background-position: -100% 0;
+    }
+    50% {
+      background-position: 100% 0;
+    }
+    100% {
+      background-position: -100% 0;
+    }
+  }
+  
 /*SE MODIFICAN LOS ESTILOS DE LINKS*/
 .boton1{
     margin-top: 10px;
@@ -151,8 +180,7 @@ nav{
 /*ANIMACIÓN DE BOTON1*/  
 .boton1:hover{
      
-    background: rgb(255,255,255);
-    background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(116,57,156,1) 0%);
+   background-color: #F7CC2E;
         border-radius: 20px;
         transition: all 350ms;
     
@@ -162,8 +190,9 @@ nav{
     width: 95%;
     height: 85%;
     margin: auto;
-    margin-top: 30px;
+    margin-top: 0px;
     display: flex;
+    flex-direction: row;
     align-items: center;
     justify-content: center;
     
@@ -183,10 +212,10 @@ nav{
     padding: 5px;
     border-radius: 25px;
     position: relative;
+    
 }
 
-/*LO QUE GENERA EL DEGRADADO DE LA CAJA SECCIÓN 1*/
-.infosec1::after{
+.infosec1::after {
     position: absolute;
     top: 0px;
     left: 0px;
@@ -194,10 +223,25 @@ nav{
     height: 100%;
     content: '';
     background: rgb(255,255,255);
-background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(116,57,156,1) 86%);
+background: linear-gradient(166deg, rgba(255,255,255,1) 6%, rgba(109,51,255,1) 64%);
+    background-size: 200% 100%;
+    background-position: -100% 0;
+    animation: slide 3s linear infinite;
     filter: blur(20px);
     z-index: -1;
+    transform: translateY(-10px);
+    
+  }
+  
+  @keyframes slide {
+    0% {
+      background-position: -100% 0;
     }
+    100% {
+      background-position: 100% 0;
+    }
+  }
+  
 
 .infosec1 h2{
         margin-top: 10px!important;
@@ -222,8 +266,8 @@ background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(116,57,156,1) 8
 
 
 .color{
-   background: rgb(255,255,255);
-    background: linear-gradient(186deg, rgba(255,255,255,1) 0%, rgba(131,58,180,0.40388655462184875) 100%);
+    background: rgb(255,255,255);
+    background: linear-gradient(166deg, rgba(255,255,255,1) 6%, rgba(109,51,255,1) 64%);
     height: 65%;
     position: relative;
     margin-top: 0%;
@@ -233,9 +277,46 @@ background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(116,57,156,1) 8
   
 }
 .ola{
-    position: relative;
+    position: absolute;
     width: 100%;
     margin-top: 190px;
+    margin-bottom: 0px;
     
 
 }
+
+.calc {
+    position: relative;
+    z-index: 9999;
+    display: inline-block;
+    width: 800px;
+    height: 800px;
+    padding: 10px;
+    border-radius: 5px;
+    animation: levitate 2s ease-in-out infinite alternate;
+  }
+  
+  @keyframes levitate {
+    0% {
+      transform: translateY(0);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+    100% {
+      transform: translateY(-30px);
+      box-shadow: 0 15px 25px rgba(0, 0, 0, 0.3);
+    }
+  }
+  
+  footer{
+    height: 30px;
+    background: rgb(255,255,255);
+    background: linear-gradient(166deg, rgba(255,255,255,1) 6%, rgba(251,255,51,1) 81%);
+  }
+  h2{font-family: 'DM Sans', sans-serif;
+  color: black;
+  }
+
+  p{
+    font-family: 'DM Sans', sans-serif;
+    color: black;
+  }

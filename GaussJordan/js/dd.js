@@ -5,30 +5,13 @@ function dropHandler(evento) {
       var lector = new FileReader();
       lector.onload = function (evento) {
         var contenido = evento.target.result;
-        var matriz = contenido.trim().split('\n').map(function (fila) {
-          return fila.trim().split(' ').map(Number);
-        });
-        loadTable(matriz);
+        var textarea = document.getElementById('dragdroptxt');
+        textarea.value = contenido;
       };
       lector.readAsText(archivo);
     } else {
       alert('Solo se permiten archivos de texto');
     }
-  }
-
-  function loadTable(matriz) {
-    var table = document.getElementById('input-table');
-    table.innerHTML = '';
-  
-    matriz.forEach(function(fila) {
-      var tr = document.createElement('tr');
-      fila.forEach(function(elemento) {
-        var td = document.createElement('td');
-        td.textContent = elemento;
-        tr.appendChild(td);
-      });
-      table.appendChild(tr);
-    });
   }
   
   function borrar() {
@@ -42,38 +25,72 @@ function dropHandler(evento) {
   }
   
   // Obtener el archivo seleccionado
-  document.getElementById("inputArchivo").addEventListener("change", function() {
+  document.getElementById("inputArchivo").addEventListener("change", function () {
     var archivo = this.files[0];
   
     // Leer el contenido del archivo
     var lector = new FileReader();
-    lector.onload = function(evento) {
+    lector.onload = function (evento) {
       // Asignar el contenido del archivo al textarea
       document.getElementById("dragdroptxt").value = evento.target.result;
     };
     lector.readAsText(archivo);
   });
   
+  function parsearFraccion(fraccion) {
+    if (fraccion.includes('/')) {
+      var partes = fraccion.split('/');
+      var numerador = parseInt(partes[0]);
+      var denominador = parseInt(partes[1]);
+      return numerador / denominador;
+    } else {
+      return parseInt(fraccion);
+    }
+  }
+  
+  function formatearFraccion(numero) {
+    if (Number.isInteger(numero)) {
+      return numero.toString();
+    } else {
+      var MAX_DENOMINATOR = 1000000;
+      var tolerance = 1e-10;
+  
+      var numerator = Math.round(numero * MAX_DENOMINATOR);
+      var denominator = MAX_DENOMINATOR;
+    
+      // Reducción de fracciones
+      var gcd = greatestCommonDivisor(numerator, denominator);
+      numerator /= gcd;
+      denominator /= gcd;
+    
+      // Ajuste de tolerancia
+      var decimal = numerator / denominator;
+      if (Math.abs(decimal - numero) < tolerance) {
+        return numerator.toString() + '/' + denominator.toString();
+      } else {
+        return numero.toFixed(10);
+      }
+    }
+  }
+  
+  // Función auxiliar para encontrar el máximo común divisor (GCD)
+  function greatestCommonDivisor(a, b) {
+    if (b === 0) {
+      return a;
+    }
+    return greatestCommonDivisor(b, a % b);
+  }
+  
+  
+  
+  
   function calcular() {
     var textarea = document.getElementById('dragdroptxt');
     var matriz = textarea.value.split('\n').map(function (fila) {
-      return fila.split(' ').map(Number);
+      return fila.split(' ').map(parsearFraccion);
     });
   
-    // Verificar si la primera casilla es cero y, en ese caso, intercambiar filas
-    if (matriz[0][0] === 0) {
-      for (var i = 1; i < matriz.length; i++) {
-        if (matriz[i][0] !== 0) {
-          // Intercambiar filas
-          var temp = matriz[0];
-          matriz[0] = matriz[i];
-          matriz[i] = temp;
-          break;
-        }
-      }
-    }
-  
-    // Aplicar el algoritmo de Gauss-Jordan
+    // Ejemplo de operación: obtener la matriz reducida por Gauss-Jordan
     var n = matriz.length;
     var m = matriz[0].length;
     for (var i = 0; i < n; i++) {
@@ -91,25 +108,42 @@ function dropHandler(evento) {
           matriz[j][k] -= factor * matriz[i][k];
         }
       }
-    }
-  
-    // Crear la tabla de resultados
-    var tablaResultados = document.getElementById('resultTable');
-    tablaResultados.innerHTML = ''; // Limpiar la tabla por si se calculó antes
-  
-    for (var i = 0; i < n; i++) {
-      var fila = document.createElement('tr');
-      for (var j = 0; j < m; j++) {
-        var celda = document.createElement('td');
-        celda.textContent = matriz[i][j];
-        fila.appendChild(celda);
+      // Hacer que el elemento (i,i) sea igual a 1
+      var factor = matriz[i][i];
+      for (var j = i; j < m; j++) {
+        matriz[i][j] /= factor;
       }
-      tablaResultados.appendChild(fila);
     }
   
-    // Aquí puedes realizar el cálculo que necesites con la matriz
+    // Convertir la matriz resultante a una cadena de texto con fracciones
+    var resultado = '';
+    for (var i = 0; i < n; i++) {
+      var fila = matriz[i].map(function (numero) {
+        if (Number.isInteger(numero)) {
+          return numero.toString();
+        } else {
+          var MAX_DENOMINATOR = 1000000;
+          var tolerance = 1e-10;
   
-    var resultado = 'Aquí va el resultado de la operación'; // Reemplaza esto con el resultado real
+          var numerator = Math.round(numero * MAX_DENOMINATOR);
+          var denominator = MAX_DENOMINATOR;
+  
+          // Reducción de fracciones
+          var gcd = greatestCommonDivisor(numerator, denominator);
+          numerator /= gcd;
+          denominator /= gcd;
+  
+          // Ajuste de tolerancia
+          var decimal = numerator / denominator;
+          if (Math.abs(decimal - numero) < tolerance) {
+            return numerator.toString() + '/' + denominator.toString();
+          } else {
+            return numero.toFixed(10);
+          }
+        }
+      }).join(' ');
+      resultado += fila + '\n';
+    }
   
     var resultadoTextarea = document.getElementById('resultado');
     resultadoTextarea.value = resultado;

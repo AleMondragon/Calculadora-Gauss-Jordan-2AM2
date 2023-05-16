@@ -164,25 +164,27 @@ textarea{
 
 
 .boton1{
-    background: linear-gradient(90deg, #020024 0%, #090979 35%, #00d4ff 100%); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-    width: 120px;
-    height: 30px;
+    margin-top: 10px;
+    width: 200px;
+    background: #8806CE;
+    height: 60px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     color: white;
     text-decoration: none;
-    border-radius: .5rem;
+    border-radius: 1rem;
+    
     
     }
 
 /*ANIMACIÓN DE BOTON1*/  
 .boton1:hover{
      
-        background-color: white;
-        border-radius: 20px;
-        transition: all 350ms;
+    background-color: #F7CC2E;
+    border-radius: 20px;
+    transition: all 350ms;
     
     }
 
@@ -207,13 +209,11 @@ textarea{
 h1 {
     display: block;
     text-align: center;
-    font-size: 2em;
-    margin-block-start: 0.67em;
-    margin-block-end: 0.67em;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
-    font-weight: bold;
-    color: white;
+    font-size: 4em;
+    margin-top: 0px;
+    font-family: 'DM Sans', sans-serif;
+    color:white;
+    margin-top: 50px;
 }
 
 /*SE DEFINE CÓMO SERÁ EL AREA QUE CONTIENE A LA NAVEGACIÓN*/
@@ -241,30 +241,10 @@ nav{
 }
 
 /*SE MODIFICAN LOS ESTILOS DE LINKS*/
-.encabezado a{
-    text-decoration: none;
-    background: linear-gradient(90deg, #020024 0%, #090979 35%, #00d4ff 100%);
-    color: white;
-    border-radius: 20px;
-    font-size: 20px;
-    height: 40px;
-    width: 180px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-}
+
 
 /*ANIMACIÓN DE LINKS*/
-nav :hover{
-    height: 50px;
-    width: 190px;
-    background-color: white;
-    border-radius: 20px;
-    transition: all 350ms;
 
-}
 /*TAMAÑO DE LA CAJA PRINCIPAL*/
 .main{
     
@@ -280,8 +260,8 @@ nav :hover{
 
 /*TAMAÑO DE LA CAJA SECCIÓN 1 */
 .infosec1{
-    height: 700px;
-    width: 50%;
+    height: 800px;
+    width: 1000px;
     background-color: white;
     display: flex;
     flex-direction: column;
@@ -290,6 +270,7 @@ nav :hover{
     padding: 5px;
     border-radius: 25px;
     position: relative;
+    margin-bottom: 50px;
 }
 
 /*LO QUE GENERA EL DEGRADADO DE LA CAJA SECCIÓN 1*/
@@ -300,20 +281,51 @@ nav :hover{
     width: 100%;
     height: 100%;
     content: '';
-    background: linear-gradient(90deg, #020024 0%, #090979 35%, #00d4ff 100%);
-    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: rgb(255,255,255);
+background: linear-gradient(166deg, rgba(255,255,255,1) 6%, rgba(109,51,255,1) 64%);
+    background-size: 200% 100%;
+    background-position: -100% 0;
+    animation: slide 3s linear infinite;
     filter: blur(20px);
     z-index: -1;
+    transform: translateY(-10px);
     }
 
-.infosec1 h2{
-        margin-top: 10px;
-        font-size: 300%;
-        text-align: center;
-        margin-bottom: 5px;
-     
- }
+    @keyframes slide {
+        0% {
+          background-position: -100% 0;
+        }
+        100% {
+          background-position: 100% 0;
+        }
+      }
+      
 
+      .infosec1 h2{
+   
+        display: block;
+        text-align: center;
+        font-size: 3rem;
+        margin-top: 0px;
+        font-family: 'DM Sans', sans-serif;
+        color: black;
+        margin-top: 50px;
+    
+    }
+
+    .infosec2 h2{
+       
+   
+            display: block;
+            text-align: center;
+            font-size: 3rem;
+            margin-top: 0px;
+            font-family: 'DM Sans', sans-serif;
+            color: black;
+            margin-top: 50px;
+        
+        
+    }
  /*ESTILO DE LETRA (PARRAFO)*/
 .Letras{
     font-style: arial;
@@ -345,52 +357,8 @@ span .calculos{
 
 }
 
-.boton1{
-    margin-top: 10px;
-    background: #8806CE;
-    width: 150px;
-    height: 40px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    text-decoration: none;
-    border-radius: .5rem;
-    
-    }
 
-/*ANIMACIÓN DE BOTON1*/  
-.boton1:hover{
-     
-        background-color: white;
-        border-radius: 20px;
-        transition: all 350ms;
-    
-    }
 
-    .boton2{
-        background: linear-gradient(90deg, #020024 0%, #090979 35%, #00d4ff 100%); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-        width: 150px;
-        height: 40px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        color: white;
-        text-decoration: none;
-        border-radius: .5rem;
-        
-        }
-    
-    /*ANIMACIÓN DE BOTON2*/   
-    .boton2:hover{
-           
-            background-color: white;
-            border-radius: 20px;
-            transition: all 350ms;
-        
-        }
 
         .mresultante{
             display: flex;
@@ -403,9 +371,9 @@ span .calculos{
         }
 
 
-.infosec2{
-            height: 600px;
-            width: 50%;
+        .infosec2{
+            height: 800px;
+            width: 1000px;
             background-color: white;
             display: flex;
             flex-direction: column;
@@ -414,8 +382,34 @@ span .calculos{
             padding: 5px;
             border-radius: 25px;
             position: relative;
-            margin-top: 30px;
         }
+        
+        /*LO QUE GENERA EL DEGRADADO DE LA CAJA SECCIÓN 1*/
+        .infosec2::after{
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            width: 100%;
+            height: 100%;
+            content: '';
+            background: rgb(255,255,255);
+        background: linear-gradient(166deg, rgba(255,255,255,1) 6%, rgba(109,51,255,1) 64%);
+            background-size: 200% 100%;
+            background-position: -100% 0;
+            animation: slide 3s linear infinite;
+            filter: blur(20px);
+            z-index: -1;
+            transform: translateY(-10px);
+            }
+        
+            @keyframes slide {
+                0% {
+                  background-position: -100% 0;
+                }
+                100% {
+                  background-position: 100% 0;
+                }
+              }
 
         textarea{
             height: 90%;
