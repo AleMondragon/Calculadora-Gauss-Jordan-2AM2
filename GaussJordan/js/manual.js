@@ -135,11 +135,8 @@ function borrarNumeros() {
 
 // Finalizar el proceso y borrar todos los inputs y resultados
 function finalizar() {
-  borrarNumeros();
-
-  // Restablecer los valores de filas y columnas
-  document.getElementById("filas").value = "";
-  document.getElementById("columnas").value = "";
+  // Reemplaza "inicio.html" con la URL de tu página de inicio
+  window.location.href = "index.html";
 }
 
 

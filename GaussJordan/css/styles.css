@@ -1,19 +1,18 @@
+*{
+  margin: 0;
+  padding: 0;
+}
 /*sE DEFINE EL COLOR DEL CUERPO */
 body {
     background-color: black;
-    width: 1600px;
     height: 1200px;
     padding: 0px;
     position: relative;
   }
 
-  html {
-    margin: 0;
-    padding: 0;
-  }
 
 /*Lo que vuelve responsivo a la página*/
-@media(max-width: 1460px){
+@media(max-width: 1200px){
 
 body{
     
