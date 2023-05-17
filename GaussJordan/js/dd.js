@@ -37,7 +37,7 @@ document.getElementById("btnValidarTabla").addEventListener("click", function() 
     for (var j = 0; j < columnas; j++) {
       var celdaMatriz = document.createElement("td");
       var entradaMatriz = document.createElement("input");
-      entradaMatriz.type = "number";
+      entradaMatriz.type = "text";
       entradaMatriz.name = "matriz[" + i + "][" + j + "]";
       entradaMatriz.value = matriz[i][j] || '0'; // Asignar valor de la matriz o vacío si no existe
       celdaMatriz.appendChild(entradaMatriz);
@@ -175,9 +175,9 @@ function mostrarResultados(matriz) {
     for (var j = 0; j < matriz[i].length; j++) {
       var celdaResultado = filaResultado.insertCell();
       var entradaResultado = document.createElement("input");
-      entradaResultado.type = "number";
+      entradaResultado.type = "text";
       entradaResultado.name = "resultado[" + i + "][" + j + "]";
-      entradaResultado.value = matriz[i][j].toFixed(2);
+      entradaResultado.value = matriz[i][j];
       celdaResultado.appendChild(entradaResultado);
     }
   }
@@ -197,7 +197,7 @@ document.getElementById("btnAgregarColumna").addEventListener("click", function(
     var fila = tablaMatriz.rows[i];
     var celda = document.createElement("td");
     var entradaMatriz = document.createElement("input");
-    entradaMatriz.type = "number";
+    entradaMatriz.type = "text";
     entradaMatriz.name = "matriz[" + i + "][" + (fila.cells.length - 1) + "]";
     entradaMatriz.value = '0';
     celda.appendChild(entradaMatriz);
@@ -215,7 +215,7 @@ document.getElementById("btnAgregarFila").addEventListener("click", function() {
   for (var i = 0; i < columnas; i++) {
     var celda = document.createElement("td");
     var entradaMatriz = document.createElement("input");
-    entradaMatriz.type = "number";
+    entradaMatriz.type = "text";
     entradaMatriz.name = "matriz[" + filas + "][" + i + "]";
     entradaMatriz.value = '0';
     celda.appendChild(entradaMatriz);
