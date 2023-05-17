@@ -5,10 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculadora Gauss Jordan</title>
-    <link rel="stylesheet" href="/css/styles2.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans&family=Dancing+Script&family=Nanum+Myeongjo:wght@800&family=Roboto&family=Tenor+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles2.css">
+    <script src="math.js" type="text/javascript"></script>
 </head>
 <body>
     <div class="PRINCIPAL">
@@ -18,9 +16,9 @@
             <div class="encabezado">
                 <!----Barra de navegacion -->
                 <nav>
-                    <a  class="boton1" href="index.html">Inicio</a>
-                    <a class="boton1" href="D&D.html">Cargar Matriz</a>
-                    <a class="boton1" href="Manual.html">Introducir Matriz</a>
+                    <a href="index.html">Inicio</a>
+                    <a href="DD.html">Cargar Matriz</a>
+                    <a href="Manual.html">Introducir Matriz</a>
                 </nav>
             </div>
             <!--División principal-->
@@ -33,26 +31,31 @@
                         <!--Aqui se lee el txt y se edita-->
                         <textarea id="dragdroptxt"></textarea>
                     </section>
-                    <span>
-                        
-                       <!--Boton funcional  que limpia el txt-->
-                            <a class="boton2" href="javascript:void(0)" onclick="borrar()">Limpiar</a>
-                            <!--Este boton tiene que realizar el calculo de la matriz (Aún no funcional)-->
+                        <button class='boton2' id="btnValidarTabla">Validar tabla</button>
+
+                        <span>
+                            <!-- Boton funcional que limpia el txt -->
+                            <a class="boton2" href="javascript:void(0)" onclick="limpiar()">Limpiar</a>
+                            <!-- Este boton tiene que realizar el calculo de la matriz (Aún no funcional) -->
                             <a class="boton2" href="#" onclick="calcular()">Calcula</a>
                             <a class="boton2" href="#" onclick="seleccionarArchivo()">Elige txt</a>
-
+                            <button class="boton2" id="btnAgregarFila">Agregar Fila</button>
+                            <button class="boton2" id="btnAgregarColumna">Agregar Columna</button>
+                            <button class="boton2" id="btnEliminarColumna">Eliminar columna</button>
+                            <button class="boton2" id="btnEliminarFila">Eliminar fila</button>
+                          
                             <!-- Input oculto para seleccionar el archivo -->
                             <input type="file" id="inputArchivo" style="display: none" />
-                     
-                    </span>
+                          </span>
+                          
                 </div>
                         
                 <div class="infosec2">
                     <h2>Matriz Resultado</h2>
                         
-                    <section class="mresultante">
+                    <section id="mresultante"></section>
                         <!--Aquí se tiene que mostrar la matriz resultado-->
-                        <textarea id="resultado"></textarea>
+                        <textarea id="resultados"></textarea>
                     </section>
                     
                         <span>
@@ -64,9 +67,6 @@
             </div>
         </div>
     </div>
-
-    <script  src="/js/dd.js">
-        
-    </script>
+    <script src="dd.js"></script>
 </body>
 </html>
