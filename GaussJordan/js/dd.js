@@ -14,7 +14,7 @@ function dropHandler(evento) {
     alert('Solo se permiten archivos de texto');
   }
 }
-
+////////////////////////////////////////
 document.getElementById("btnValidarTabla").addEventListener("click", function() {
   var contenido = document.getElementById("dragdroptxt").value;
   var matriz = contenido.split('\n').map(function(fila) {
@@ -51,6 +51,9 @@ document.getElementById("btnValidarTabla").addEventListener("click", function() 
   var btnValidarTabla = document.getElementById("btnValidarTabla");
   btnValidarTabla.parentNode.insertBefore(tablaMatriz, btnValidarTabla.nextSibling); // Insertar tabla después del botón
 });
+////////////////////////////////////////////////////
+
+
 
 // Función para convertir los valores en números
 function parseNumber(value) {
@@ -59,14 +62,14 @@ function parseNumber(value) {
     if (/^-?\d+(\.\d+)?$/.test(value)) {
       return parseFloat(value);
     }
+// Si es una fracción, se convierte a decimal
+  if (/^-?\d+\/\d+$/.test(value)) {
+    var fraccion = value.split('/');
+    var numerador = parseInt(fraccion[0]);
+    var denominador = parseInt(fraccion[1]);
+  return numerador / denominador;
+}
 
-    // Si es una fracción, se evalúa y se devuelve el resultado como un número decimal
-    if (/^-?\d+\/\d+$/.test(value)) {
-      var partes = value.split('/');
-      var numerador = parseFloat(partes[0]);
-      var denominador = parseFloat(partes[1]);
-      return numerador / denominador;
-    }
   } catch (error) {
     console.error('Error al parsear el número:', value, error);
   }
@@ -74,6 +77,7 @@ function parseNumber(value) {
   // Si no se puede parsear el valor, se devuelve 0
   return 0;
 }
+
 
 
 function limpiar() {
@@ -160,7 +164,12 @@ function calcular() {
   mostrarResultados(matriz);
 }
 
-// Función para mostrar los resultados en una tabla
+// Función para convertir un número decimal a fracción utilizando la biblioteca "fraction.js"
+function convertirAFraccion(numero) {
+  var fraccion = new Fraction(numero);
+  return fraccion.toFraction();
+}
+
 function mostrarResultados(matriz) {
   var resultadoTextarea = document.getElementById('resultados');
   resultadoTextarea.style.display = 'none'; 
@@ -177,7 +186,15 @@ function mostrarResultados(matriz) {
       var entradaResultado = document.createElement("input");
       entradaResultado.type = "text";
       entradaResultado.name = "resultado[" + i + "][" + j + "]";
-      entradaResultado.value = matriz[i][j];
+      var numero = matriz[i][j];
+      if (Number.isInteger(numero)) {
+        // Si el número es entero, se muestra sin cambios
+        entradaResultado.value = numero;
+      } else {
+        // Si el número tiene decimales, se convierte a fracción utilizando la biblioteca "fraction.js"
+        var fraccion = convertirAFraccion(numero);
+        entradaResultado.value = fraccion;
+      }
       celdaResultado.appendChild(entradaResultado);
     }
   }
@@ -185,6 +202,7 @@ function mostrarResultados(matriz) {
   tablaResultados.appendChild(cuerpoTablaResultados);
   resultadosSection.appendChild(tablaResultados);
 }
+
 
 
 
