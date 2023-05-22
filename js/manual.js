@@ -23,10 +23,10 @@ function crearTabla() {
   document.getElementById("columnas").style.display = "none";
   document.getElementById("crearPrimerTabla").style.display = "none";
   document.getElementById("lecturaEntrada").style.display = "none";
-  document.getElementById("botonAgregarFila").style.display = "block";
-  document.getElementById("botonAgregarColumna").style.display = "block";
-  document.getElementById("botonEliminarFila").style.display = "block";
-  document.getElementById("botonEliminarColumna").style.display = "block";
+  document.getElementById("botonAgregarFila").style.display = "flex";
+  document.getElementById("botonAgregarColumna").style.display = "flex";
+  document.getElementById("botonEliminarFila").style.display = "flex";
+  document.getElementById("botonEliminarColumna").style.display = "flex";
 }
 
 function calcularFraccion(numero) {
