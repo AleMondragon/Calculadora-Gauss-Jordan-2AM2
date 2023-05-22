@@ -7,6 +7,28 @@ function dropHandler(evento) {
     lector.onload = function (evento) {
       var contenido = evento.target.result;
       var textarea = document.getElementById('dragdroptxt');
+      
+      // Verificar si el contenido del archivo contiene elementos no admitidos, incluyendo números negativos
+      var elementosNoAdmitidos = /[^-0-9\/. \n]/g.test(contenido);
+      
+      if (elementosNoAdmitidos) {
+        // Mostrar diálogo de confirmación para reemplazar elementos no admitidos por ceros
+        var confirmacion = confirm('El archivo contiene elementos no admitidos. ¿Desea reemplazarlos por ceros?');
+        
+        if (confirmacion) {
+          // Reemplazar elementos no admitidos por ceros utilizando una función de reemplazo personalizada
+          contenido = contenido.replace(/[^-0-9\/. \n]/g, function(match) {
+            if (match === '-') {
+              return ''; // Conservar el signo negativo
+            } else {
+              return '0'; // Reemplazar por cero
+            }
+          });
+        } else {
+          return; // Cancelar la función si no se acepta reemplazar los elementos no admitidos
+        }
+      }
+      
       textarea.value = contenido;
     };
     lector.readAsText(archivo);
@@ -14,6 +36,7 @@ function dropHandler(evento) {
     alert('Solo se permiten archivos de texto');
   }
 }
+
 
 document.getElementById("btnValidarTabla").addEventListener("click", function() {
   var contenido = document.getElementById("dragdroptxt").value;
