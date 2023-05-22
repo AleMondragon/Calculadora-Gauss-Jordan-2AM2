@@ -286,7 +286,8 @@ h2{
     margin-top: 0px;
     font-family: 'DM Sans', sans-serif;
     color: black;
-    margin-top: 50px;
+    margin-top: 30px;
+    margin-bottom: 20px;
     
      
     }
@@ -315,6 +316,7 @@ h2{
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    text-align: center;
     color: white;
     text-decoration: none;
     border-radius: 1rem;
@@ -328,6 +330,9 @@ h2{
         border-radius: 20px;
         transition: all 350ms;
     
+    }
+    .drop1{
+        display:none;
     }
 
 /*LO QUE GENERA EL DEGRADADO DE LA CAJA SECCIÓN 2*/
@@ -424,14 +429,15 @@ span .boton1{
   
   /* Estilo de las celdas */
   #tablaMatriz {
-    border-collapse: separate; /* En lugar de "collapse" */
-            border-spacing: 10px; /* Cambia este valor al espacio deseado */
-            max-width: 400px;
-            max-height: 300px;
-            display: inline-block;
-            max-width: 700px;
-            overflow-x: auto;
-            overflow-y: auto;
+    border-collapse: separate;
+    border-spacing: 10px;
+    max-width: 400px;
+    height: 130px;
+    max-height: 150px;
+    display: inline-block;
+    max-width: 700px;
+    overflow-x: auto;
+    overflow-y: auto;
   }
   
   #matriz td {

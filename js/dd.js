@@ -1,4 +1,3 @@
-
 function dropHandler(evento) {
   evento.preventDefault();
   var archivo = evento.dataTransfer.files[0];
@@ -9,7 +8,7 @@ function dropHandler(evento) {
       var textarea = document.getElementById('dragdroptxt');
       
       // Verificar si el contenido del archivo contiene elementos no admitidos, incluyendo números negativos
-      var elementosNoAdmitidos = /[^-0-9\/. \n]/g.test(contenido);
+      var elementosNoAdmitidos = /[^0-9\/.\s-]/g.test(contenido);
       
       if (elementosNoAdmitidos) {
         // Mostrar diálogo de confirmación para reemplazar elementos no admitidos por ceros
@@ -17,7 +16,7 @@ function dropHandler(evento) {
         
         if (confirmacion) {
           // Reemplazar elementos no admitidos por ceros utilizando una función de reemplazo personalizada
-          contenido = contenido.replace(/[^-0-9\/. \n]/g, function(match) {
+          contenido = contenido.replace(/[^0-9\/.\s-]/g, function(match) {
             if (match === '-') {
               return ''; // Conservar el signo negativo
             } else {
@@ -30,6 +29,7 @@ function dropHandler(evento) {
       }
       
       textarea.value = contenido;
+      // Mostrar los botones ocultos si se ha recibido un archivo de texto válido
     };
     lector.readAsText(archivo);
   } else {
@@ -39,6 +39,7 @@ function dropHandler(evento) {
 
 
 document.getElementById("btnValidarTabla").addEventListener("click", function() {
+  
   var contenido = document.getElementById("dragdroptxt").value;
   var matriz = contenido.split('\n').map(function(fila) {
     return fila.split(' ').map(parseNumber);
@@ -73,6 +74,11 @@ document.getElementById("btnValidarTabla").addEventListener("click", function() 
 
   var btnValidarTabla = document.getElementById("btnValidarTabla");
   btnValidarTabla.parentNode.insertBefore(tablaMatriz, btnValidarTabla.nextSibling); // Insertar tabla después del botón
+  var botones = document.getElementsByClassName('drop1');
+  for (var i = 0; i < botones.length; i++) {
+    botones[i].style.display = 'block';
+  }
+  document.getElementById('subirTxt').style.display = 'none';
 });
 
 // Función para convertir los valores en números
@@ -101,7 +107,14 @@ function parseNumber(value) {
 
 function limpiar() {
   var textarea = document.getElementById('dragdroptxt');
+  var botones = document.getElementsByClassName('drop1');
+      for (var i = 0; i < botones.length; i++) {
+        botones[i].style.display = 'none';
+      }
+  document.getElementById('subirTxt').style.display="block"
   textarea.value = '';
+
+  event.target.result="";
 
   var tablaMatriz = document.getElementById('tablaMatriz');
   tablaMatriz.parentNode.removeChild(tablaMatriz);
@@ -147,7 +160,18 @@ function calcular() {
     for (var j = 0; j < columnas; j++) {
       var celdaMatriz = filaMatriz.cells[j];
       var entradaMatriz = celdaMatriz.querySelector('input');
-      fila.push(parseNumber(entradaMatriz.value)); // Convertir a decimal
+      var contenido = entradaMatriz.value;
+      // Aplicar el filtro de caracteres no admitidos
+      var elementosNoAdmitidos = /[^0-9.\/-]/g.test(contenido);
+      if (elementosNoAdmitidos) {
+        alert('Se ha ingresado un valor no válido. Por favor, ingrese solo números en todas las celdas.');
+        return; // Detener el cálculo
+      }
+
+      // Convertir el valor a número
+      var valor = parseFloat(contenido);
+
+      fila.push(valor);
     }
     matriz.push(fila);
   }
@@ -225,8 +249,8 @@ function convertirAFraccion(numero) {
   var signo = (numero < 0) ? -1 : 1;
   numero = Math.abs(numero);
   
-  var epsilon = 1.0e-12; // Precisión para la aproximación
-  var maxIteraciones = 1000; // Máximo número de iteraciones
+  var epsilon = 0.000001; // Precisión para la aproximación
+  var maxIteraciones = 10000; // Máximo número de iteraciones
   
   var numerador = 1;
   var denominador = 1;
