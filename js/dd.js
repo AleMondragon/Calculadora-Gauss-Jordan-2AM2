@@ -14,7 +14,7 @@ function dropHandler(evento) {
     alert('Solo se permiten archivos de texto');
   }
 }
-////////////////////////////////////////
+
 document.getElementById("btnValidarTabla").addEventListener("click", function() {
   var contenido = document.getElementById("dragdroptxt").value;
   var matriz = contenido.split('\n').map(function(fila) {
@@ -51,9 +51,6 @@ document.getElementById("btnValidarTabla").addEventListener("click", function() 
   var btnValidarTabla = document.getElementById("btnValidarTabla");
   btnValidarTabla.parentNode.insertBefore(tablaMatriz, btnValidarTabla.nextSibling); // Insertar tabla después del botón
 });
-////////////////////////////////////////////////////
-
-
 
 // Función para convertir los valores en números
 function parseNumber(value) {
@@ -62,14 +59,14 @@ function parseNumber(value) {
     if (/^-?\d+(\.\d+)?$/.test(value)) {
       return parseFloat(value);
     }
-// Si es una fracción, se convierte a decimal
-  if (/^-?\d+\/\d+$/.test(value)) {
-    var fraccion = value.split('/');
-    var numerador = parseInt(fraccion[0]);
-    var denominador = parseInt(fraccion[1]);
-  return numerador / denominador;
-}
 
+    // Si es una fracción, se evalúa y se devuelve el resultado como un número decimal
+    if (/^-?\d+\/\d+$/.test(value)) {
+      var partes = value.split('/');
+      var numerador = parseFloat(partes[0]);
+      var denominador = parseFloat(partes[1]);
+      return numerador / denominador;
+    }
   } catch (error) {
     console.error('Error al parsear el número:', value, error);
   }
@@ -77,7 +74,6 @@ function parseNumber(value) {
   // Si no se puede parsear el valor, se devuelve 0
   return 0;
 }
-
 
 
 function limpiar() {
@@ -128,7 +124,7 @@ function calcular() {
     for (var j = 0; j < columnas; j++) {
       var celdaMatriz = filaMatriz.cells[j];
       var entradaMatriz = celdaMatriz.querySelector('input');
-      fila.push(parseFloat(entradaMatriz.value));
+      fila.push(parseNumber(entradaMatriz.value)); // Convertir a decimal
     }
     matriz.push(fila);
   }
@@ -140,14 +136,14 @@ function calcular() {
   var m = matriz[0].length;
   for (var i = 0; i < n; i++) {
     // Hacer ceros en la columna i por debajo de la fila i
-    for (var j = i+1; j < n; j++) {
+    for (var j = i + 1; j < n; j++) {
       var factor = matriz[j][i] / matriz[i][i];
       for (var k = i; k < m; k++) {
         matriz[j][k] -= factor * matriz[i][k];
       }
     }
     // Hacer ceros en la columna i por encima de la fila i
-    for (var j = i-1; j >= 0; j--) {
+    for (var j = i - 1; j >= 0; j--) {
       var factor = matriz[j][i] / matriz[i][i];
       for (var k = i; k < m; k++) {
         matriz[j][k] -= factor * matriz[i][k];
@@ -164,15 +160,10 @@ function calcular() {
   mostrarResultados(matriz);
 }
 
-// Función para convertir un número decimal a fracción utilizando la biblioteca "fraction.js"
-function convertirAFraccion(numero) {
-  var fraccion = new Fraction(numero);
-  return fraccion.toFraction();
-}
-
+// Función para mostrar los resultados en una tabla
 function mostrarResultados(matriz) {
   var resultadoTextarea = document.getElementById('resultados');
-  resultadoTextarea.style.display = 'none'; 
+  resultadoTextarea.style.display = 'none';
   var resultadosSection = document.getElementById('mresultante');
   resultadosSection.innerHTML = ''; // Limpiar contenido anterior
 
@@ -186,15 +177,13 @@ function mostrarResultados(matriz) {
       var entradaResultado = document.createElement("input");
       entradaResultado.type = "text";
       entradaResultado.name = "resultado[" + i + "][" + j + "]";
-      var numero = matriz[i][j];
-      if (Number.isInteger(numero)) {
-        // Si el número es entero, se muestra sin cambios
-        entradaResultado.value = numero;
+
+      if (esDecimal(matriz[i][j])) {
+        entradaResultado.value = convertirAFraccion(matriz[i][j]);
       } else {
-        // Si el número tiene decimales, se convierte a fracción utilizando la biblioteca "fraction.js"
-        var fraccion = convertirAFraccion(numero);
-        entradaResultado.value = fraccion;
+        entradaResultado.value = matriz[i][j];
       }
+      
       celdaResultado.appendChild(entradaResultado);
     }
   }
@@ -203,6 +192,36 @@ function mostrarResultados(matriz) {
   resultadosSection.appendChild(tablaResultados);
 }
 
+// Función para verificar si un número es decimal
+function esDecimal(numero) {
+  return numero % 1 !== 0;
+}
+
+// Función para convertir un número decimal a fracción reducida
+function convertirAFraccion(numero) {
+  var signo = (numero < 0) ? -1 : 1;
+  numero = Math.abs(numero);
+  
+  var epsilon = 1.0e-12; // Precisión para la aproximación
+  var maxIteraciones = 1000; // Máximo número de iteraciones
+  
+  var numerador = 1;
+  var denominador = 1;
+  var error = Math.abs(numero - numerador / denominador);
+  
+  var iteraciones = 0;
+  while (error > epsilon && iteraciones < maxIteraciones) {
+    if (numerador / denominador < numero) {
+      numerador++;
+    } else {
+      denominador++;
+    }
+    error = Math.abs(numero - numerador / denominador);
+    iteraciones++;
+  }
+  
+  return (signo * numerador) + '/' + denominador;
+}
 
 
 
