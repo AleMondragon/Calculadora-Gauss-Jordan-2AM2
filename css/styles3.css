@@ -7,7 +7,7 @@ body{
 }
 
 /*Lo que vuelve responsivo a la página*/
-@media(max-width: 1460px){
+@media(max-width: 1200px){
 
 body{
     
