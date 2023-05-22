@@ -250,3 +250,29 @@ function borrarDatos() {
   var tablaResultado = document.getElementById("tablaResultado");
   tablaResultado.innerHTML = "";
 }
+
+document.getElementById("botonAgregarFila").addEventListener("click", function(){
+   // Obtener el número de filas y columnas actual
+   var filas = parseInt(document.getElementById("filas").value);
+   var columnas = parseInt(document.getElementById("columnas").value);
+ 
+   // Incrementar el número de filas
+   filas++;
+ 
+   // Actualizar el número de filas en el input correspondiente
+   document.getElementById("filas").value = filas;
+ 
+   // Obtener la tabla y su cuerpo
+   var tablaMatriz = document.getElementById("matriz");
+   var cuerpoTablaMatriz = tablaMatriz.tBodies[0];
+ 
+   // Crear una nueva fila y sus celdas
+   var filaMatriz = cuerpoTablaMatriz.insertRow();
+   for (var j = 0; j < columnas; j++) {
+     var celdaMatriz = filaMatriz.insertCell();
+     var entradaMatriz = document.createElement("input");
+     entradaMatriz.type = "text";
+     entradaMatriz.name = "matriz[" + (filas - 1) + "][" + j + "]";
+     celdaMatriz.appendChild(entradaMatriz);
+   }
+})
