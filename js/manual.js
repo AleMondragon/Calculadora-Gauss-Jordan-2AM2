@@ -16,9 +16,15 @@ function crearTabla() {
       entradaMatriz.type = "text";
       entradaMatriz.name = "matriz[" + i + "][" + j + "]";
       celdaMatriz.appendChild(entradaMatriz);
-      
     }
   }
+
+  var encabezado = document.createElement("h2");
+  encabezado.textContent = "Introduce los elementos de la matriz";
+
+  var padreTabla = tablaMatriz.parentNode;
+  padreTabla.insertBefore(encabezado, tablaMatriz);
+
   document.getElementById("filas").style.display = "none";
   document.getElementById("columnas").style.display = "none";
   document.getElementById("crearPrimerTabla").style.display = "none";
@@ -28,6 +34,8 @@ function crearTabla() {
   document.getElementById("botonEliminarFila").style.display = "flex";
   document.getElementById("botonEliminarColumna").style.display = "flex";
 }
+
+
 
 function calcularFraccion(numero) {
   var signo = Math.sign(numero);
