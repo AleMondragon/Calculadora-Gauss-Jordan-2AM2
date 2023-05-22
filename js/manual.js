@@ -27,7 +27,6 @@ function crearTabla() {
   document.getElementById("botonAgregarColumna").style.display = "block";
   document.getElementById("botonEliminarFila").style.display = "block";
   document.getElementById("botonEliminarColumna").style.display = "block";
-  
 }
 
 function calcularFraccion(numero) {
@@ -48,10 +47,6 @@ function calcularFraccion(numero) {
   var resultado = entero + resto;
   return signo * resultado;
 }
-
-
-
-
 
 // Crear la matriz a partir de los inputs
 function crearMatriz() {
@@ -81,16 +76,11 @@ function crearMatriz() {
   return matriz;
 }
 
-
-
 // Crear la tabla con la matriz resultado
 function crearTablaResultado(matriz) {
   // Obtener la tabla y su cuerpo
   var tablaResultado = document.getElementById("tablaResultado");
   var cuerpoTablaResultado = tablaResultado.createTBody();
-
-
-
 
   // Crear cada fila y sus celdas
   for (var i = 0; i < matriz.length; i++) {
@@ -125,9 +115,6 @@ function decimalAFraccion(a, b) {
     return numerador + "/" + denominador;
   }
 }
-
-
-
 // Función para calcular el máximo común divisor de dos números
 function gcd(a, b) {
   if (b === 0) {
@@ -135,7 +122,6 @@ function gcd(a, b) {
   }
   return gcd(b, a % b);
 }
-
 
 
 // Validar que la matriz tenga al menos una fila y una columna
