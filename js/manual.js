@@ -19,6 +19,15 @@ function crearTabla() {
       
     }
   }
+  document.getElementById("filas").style.display = "none";
+  document.getElementById("columnas").style.display = "none";
+  document.getElementById("crearPrimerTabla").style.display = "none";
+  document.getElementById("lecturaEntrada").style.display = "none";
+  document.getElementById("botonAgregarFila").style.display = "block";
+  document.getElementById("botonAgregarColumna").style.display = "block";
+  document.getElementById("botonEliminarFila").style.display = "block";
+  document.getElementById("botonEliminarColumna").style.display = "block";
+  
 }
 
 function calcularFraccion(numero) {
@@ -140,6 +149,7 @@ function validarMatriz() {
   }
 
   return true;
+  
 }
 
 // Calcular la matriz Gauss-Jordan
@@ -233,7 +243,30 @@ function borrarNumeros() {
   while (tablaResultado.rows.length > 0) {
     tablaResultado.deleteRow(0);
   }
+
+  // Vaciar todos los inputs de la matriz
+  var inputsMatriz = document.querySelectorAll("#matriz input[type='text']");
+  inputsMatriz.forEach(function(input) {
+    input.value = "";
+  });
+
+  // Vaciar todos los inputs de la matriz resultado
+  var inputsResultado = document.querySelectorAll("#tablaResultado input[type='text']");
+  inputsResultado.forEach(function(input) {
+    input.value = "";
+  });
+
+  // Restaurar los controles de entrada
+  document.getElementById("filas").style.display = "block";
+  document.getElementById("columnas").style.display = "block";
+  document.getElementById("crearPrimerTabla").style.display = "block";
+  document.getElementById("lecturaEntrada").style.display = "block";
+  document.getElementById("botonAgregarFila").style.display = "none";
+  document.getElementById("botonAgregarColumna").style.display = "none";
+  document.getElementById("botonEliminarFila").style.display = "none";
+  document.getElementById("botonEliminarColumna").style.display = "none";
 }
+
 
 function borrarDatos() {
   // Borrar la matriz de entrada
@@ -275,4 +308,78 @@ document.getElementById("botonAgregarFila").addEventListener("click", function()
      entradaMatriz.name = "matriz[" + (filas - 1) + "][" + j + "]";
      celdaMatriz.appendChild(entradaMatriz);
    }
+});
+
+document.getElementById("botonAgregarColumna").addEventListener("click", function(){
+  // Obtener el número de filas y columnas actual
+  var filas = parseInt(document.getElementById("filas").value);
+  var columnas = parseInt(document.getElementById("columnas").value);
+
+  // Incrementar el número de columnas
+  columnas++;
+
+  // Actualizar el número de columnas en el input correspondiente
+  document.getElementById("columnas").value = columnas;
+
+  // Agregar una celda a cada fila existente
+  var tablaMatriz = document.getElementById("matriz");
+  var filasMatriz = tablaMatriz.rows;
+
+  for (var i = 0; i < filasMatriz.length; i++) {
+    var fila = filasMatriz[i];
+    var celda = fila.insertCell();
+    var entradaMatriz = document.createElement("input");
+    entradaMatriz.type = "text";
+    entradaMatriz.name = "matriz[" + i + "][" + (columnas - 1) + "]";
+    celda.appendChild(entradaMatriz);
+  }
 })
+
+document.getElementById("botonEliminarFila").addEventListener("click", function(){
+  // Obtener el número de filas y columnas actual
+  var filas = parseInt(document.getElementById("filas").value);
+  var columnas = parseInt(document.getElementById("columnas").value);
+
+  // Verificar que haya al menos 2 filas para eliminar una
+  if (filas < 2) {
+    alert("Debe haber al menos 2 filas.");
+    return;
+  }
+
+  // Decrementar el número de filas
+  filas--;
+
+  // Actualizar el número de filas en el input correspondiente
+  document.getElementById("filas").value = filas;
+
+  // Eliminar la última fila de la tabla
+  var tablaMatriz = document.getElementById("matriz");
+  tablaMatriz.deleteRow(filas);
+})
+
+document.getElementById("botonEliminarColumna").addEventListener("click", function(e) {
+  // Obtener el número de filas y columnas actual
+  var filas = parseInt(document.getElementById("filas").value);
+  var columnas = parseInt(document.getElementById("columnas").value);
+
+  // Verificar que haya al menos 2 columnas para eliminar una
+  if (columnas < 2) {
+    alert("Debe haber al menos 2 columnas.");
+    return;
+  }
+
+  // Decrementar el número de columnas
+  columnas--;
+
+  // Actualizar el número de columnas en el input correspondiente
+  document.getElementById("columnas").value = columnas;
+
+  // Eliminar la última celda de cada fila existente
+  var tablaMatriz = document.getElementById("matriz");
+  var filasMatriz = tablaMatriz.rows;
+
+  for (var i = 0; i < filasMatriz.length; i++) {
+    var fila = filasMatriz[i];
+    fila.deleteCell(columnas);
+  }
+});

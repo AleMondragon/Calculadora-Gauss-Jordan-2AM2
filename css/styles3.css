@@ -188,6 +188,9 @@ textarea{
     
     }
 
+    .info{
+        display: none;
+    }
 
 
 /*TAMAÑO DEL BLOQUE PRINCIPAL*/

@@ -23,20 +23,25 @@
             <div class="main">
                 <!--Caja Principal-->
                 <div class="infosec1">
-                    <h2>Introduce el número de columnas y filas manualmente</h2>
-                    <form>
-                        <label for="rows">Cantidad de ecuaciones: </label>
-                        <input class="inputp"type="text" id="filas" name="filas" min="1"><br><br>
-                        <label for="cols">Cantidad de variables:</label>
-                        <input class="inputp" type="text" id="columnas" name="columnas" min="1"><br><br>
-                        <button  class="boton1" type="button" onclick="crearTabla()">Validar matriz</button>
-                    </form>
+                    <div id="lecturaEntrada">
+                        <h2>Introduce el número de columnas y filas manualmente</h2>
+                        <form>
+                            <label for="rows">Cantidad de ecuaciones: </label>
+                            <input class="inputp"type="text" id="filas" name="filas" min="1"><br><br>
+                            <label for="cols">Cantidad de variables:</label>
+                            <input class="inputp" type="text" id="columnas" name="columnas" min="1"><br><br>
+                            <button  class="boton1" id="crearPrimerTabla" type="button" onclick="crearTabla()">Validar matriz</button>
+                        </form>
+                    </div>
                     <br>
                     <table id="matriz"></table>
                     <br>
                     <span class="calculos">
-                        <a class="boton1" id="botonAgregarFila" href="#">Agregar fila</a>
                         <a class="boton1" href="#" onclick="calcular()">Calcular</a>
+                        <a class="boton1 info" id="botonAgregarFila" href="#">Agregar fila</a>
+                        <a class="boton1 info" id="botonAgregarColumna" href="#">Agregar columna</a>
+                        <a class="boton1 info" id="botonEliminarColumna" href="#">Eliminar columna</a>
+                        <a class="boton1 info" id="botonEliminarFila" href="#">Eliminar fila</a>
                         <a class="boton1" href="#" onclick="borrarNumeros()">Borrar</a>
                     </span>
                 </div>
