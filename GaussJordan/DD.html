@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Gauss Jordan</title>
+    <link rel="stylesheet" href="css/styles2.css">
+</head>
+<body>
+    <div class="PRINCIPAL">
+        <div class="inicio">
+         
+            <!--Titulo-->
+            <h1>Calculadora Gauss Jordan</h1>
+            <div class="encabezado">
+                <!----Barra de navegacion -->
+                <nav>
+                    <a  class="boton1"href="index.html">Inicio</a>
+                    <a   class="boton1"href="DD.html">Cargar Matriz</a>
+                    <a  class="boton1"href="Manual.html">Introducir Matriz</a>
+                </nav>
+            </div>
+            <!--División principal-->
+            <div class="main">
+                    <!--Caja Drag and Drop-->
+                <div class="infosec1">
+                    <h2>Coloca aqui tu archivo .txt</h2>
+                        
+                    <section class="dragdrop" ondragover="event.preventDefault()" ondrop="dropHandler(event)">
+                        <!--Aqui se lee el txt y se edita-->
+                        <textarea id="dragdroptxt"></textarea>
+                    </section>
+                        <a class='boton1'href="#" id="btnValidarTabla">Validar tabla</a>
+
+                        <span>
+                            <!-- Boton funcional que limpia el txt -->
+                            <a class="boton1" href="javascript:void(0)" onclick="limpiar()">Limpiar</a>
+                            <!-- Este boton tiene que realizar el calculo de la matriz (Aún no funcional) -->
+                            <a class="boton1" href="#" onclick="calcular()">Calcula</a>
+                            <a class="boton1" href="#" onclick="seleccionarArchivo()">Elige txt</a>
+                            <a class="boton1" href="#"id="btnAgregarFila">Agregar Fila<a/>
+                            <a class="boton1" href="#"id="btnAgregarColumna">Agregar Columna<a/>
+                            <a class="boton1" href="#"id="btnEliminarColumna">Eliminar columna</a>
+                            <a class="boton1" href="#"id="btnEliminarFila">Eliminar fila<a/>
+                          
+                            <!-- Input oculto para seleccionar el archivo -->
+                            <input type="file" id="inputArchivo" style="display: none" />
+                          </span>
+                          
+                </div>
+                        
+                <div class="infosec2">
+                    <h2>Matriz Resultado</h2>
+                        
+                    <section id="mresultante"></section>
+                        <!--Aquí se tiene que mostrar la matriz resultado-->
+                        <textarea id="resultados"></textarea>
+                    </section>
+                    
+                        <span>
+                            <a class="boton2" href="#" onclick="finalizar()">Finalizar</a>
+                            <!--Este boton deberia de borrar todo, tanto la caja donde se introduce la matriz y la matriz resultante-->
+                        </span>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="js/dd.js"></script>
+</body>
+</html>
