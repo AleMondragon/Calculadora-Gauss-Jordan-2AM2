@@ -66,7 +66,8 @@ function crearMatriz() {
     matriz[i] = [];
 
     for (var j = 0; j < celdas.length; j++) {
-      var valor = if(celdas[j]!=''){
+      var valor;
+      if(celdas[j]!=''){
                      var valor = celdas[j].childNodes[0].value;
                   }else{
                     var valor = 0;
