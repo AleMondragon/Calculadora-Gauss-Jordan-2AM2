@@ -408,6 +408,5 @@ document.getElementById("btnEliminarFila").addEventListener("click", function() 
 });
 
 function finalizar() {
-  // Reemplaza "inicio.html" con la URL de tu página de inicio
   window.location.href = "index.html";
 }

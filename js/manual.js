@@ -270,19 +270,7 @@ function borrarNumeros() {
 
 
 function borrarDatos() {
-  // Borrar la matriz de entrada
-  var tablaMatriz = document.getElementById("matriz");
-  var filas = tablaMatriz.rows;
-  for (var i = 0; i < filas.length; i++) {
-    var celdas = filas[i].cells;
-    for (var j = 0; j < celdas.length; j++) {
-      celdas[j].childNodes[0].value = "";
-    }
-  }
-
-  // Borrar la tabla de resultados
-  var tablaResultado = document.getElementById("tablaResultado");
-  tablaResultado.innerHTML = "";
+  window.location.href = "index.html";
 }
 
 document.getElementById("botonAgregarFila").addEventListener("click", function(){
