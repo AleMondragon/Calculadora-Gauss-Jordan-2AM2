@@ -66,7 +66,11 @@ function crearMatriz() {
     matriz[i] = [];
 
     for (var j = 0; j < celdas.length; j++) {
-      var valor = celdas[j].childNodes[0].value;
+      var valor = if(celdas[j]!=''){
+                     var valor = celdas[j].childNodes[0].value;
+                  }else{
+                    var valor = 0;
+                  }
       if (valor.indexOf('/') >= 0) {
         // Si es una fracción, convertirla a decimal y luego a fracción nuevamente
         var partes = valor.split('/');
@@ -136,13 +140,15 @@ function gcd(a, b) {
 function validarMatriz() {
   var filas = parseInt(document.getElementById("filas").value);
   var columnas = parseInt(document.getElementById("columnas").value);
-
   if (isNaN(filas) || isNaN(columnas) || filas < 1 || columnas < 1) {
     alert("La matriz debe tener al menos una fila y una columna");
     return false;
   }
 
   return true;
+  
+}
+function checarCeros(){
   
 }
 
@@ -326,6 +332,7 @@ document.getElementById("botonAgregarColumna").addEventListener("click", functio
     entradaMatriz.type = "text";
     entradaMatriz.name = "matriz[" + i + "][" + (columnas - 1) + "]";
     celda.appendChild(entradaMatriz);
+    //Checar 0's
   }
 })
 
