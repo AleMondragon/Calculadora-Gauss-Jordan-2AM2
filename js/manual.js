@@ -66,28 +66,36 @@ function crearMatriz() {
     matriz[i] = [];
 
     for (var j = 0; j < celdas.length; j++) {
-      var valor;
-      if(celdas[j]!=''){
-                     var valor = celdas[j].childNodes[0].value;
-                  }else{
-                    var valor = 0;
-                  }
-      if (valor.indexOf('/') >= 0) {
+      var valor = celdas[j].childNodes[0].value;
+
+      // Validar si se ingresó una letra
+      if (isNaN(parseFloat(valor))) {
+        alert("MATRIZ INVÁLIDA: Se ha ingresado una letra. Por favor, verifique que se introdujeron solo números en las celdas.");
+        return null;
+      }
+
+      // Convertir el valor a fracción si es necesario
+      if (valor.indexOf("/") >= 0) {
         // Si es una fracción, convertirla a decimal y luego a fracción nuevamente
-        var partes = valor.split('/');
+        var partes = valor.split("/");
         var numerador = parseFloat(partes[0]);
         var denominador = parseFloat(partes[1]);
+        if (isNaN(parseFloat(denominador))) {
+          alert("MATRIZ INVÁLIDA: Se ha ingresado una letra. Por favor, verifique que se introdujeron solo números en las celdas.");
+          return null;
+        }
         valor = [numerador, denominador];
       } else {
-        valor = [parseFloat(valor), 1]
+        valor = [parseFloat(valor), 1];
       }
-      matriz[i][j] = valor;
 
+      matriz[i][j] = valor;
     }
   }
 
   return matriz;
 }
+
 
 // Crear la tabla con la matriz resultado
 function crearTablaResultado(matriz) {
@@ -280,7 +288,7 @@ document.getElementById("botonAgregarFila").addEventListener("click", function()
  
    // Incrementar el número de filas
    filas++;
- 
+
    // Actualizar el número de filas en el input correspondiente
    document.getElementById("filas").value = filas;
  
