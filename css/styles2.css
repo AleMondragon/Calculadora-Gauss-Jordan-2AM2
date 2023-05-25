@@ -1,3 +1,7 @@
+*{
+    padding: 0;
+    margin: 0;
+}
 /*sE DEFINE EL COLOR DEL CUERPO */
 body{
 
@@ -448,4 +452,92 @@ span .boton1{
             max-width: 700px;
             overflow-x: auto;
             overflow-y: auto;
+  }
+  .drop1{
+    display: none;
+  }
+  input{
+    width: 100px;
+  }
+
+  @media screen and (max-width:1300px) {
+    .PRINCIPAL{
+        width: 100%;
+        height: 100%;
+    }
+    .inicio{
+        display: flex;
+        flex-direction: column;
+        align-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+    }
+    h1{
+        text-align: center;
+        font-size: 380%;
+        padding-top: 2%;
+        padding-bottom: 2%;
+        margin-top: 5%;
+    }
+    .encabezado{
+        height: 100%;
+        padding-top:1%;
+        padding-bottom: 5%;
+    }
+    nav{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: 40vw;
+        margin-top: 1%  ;
+    }
+    .boton1{
+        padding: 1%;
+    }
+    .main{
+        display: flex;
+        flex-direction: column;
+        height: auto;
+    }
+    .infosec1{
+        margin-top: 5%;
+        margin: 20px;
+        width: 90% !important;
+    }
+    .infosec1 h2{
+        margin-top: 5%;
+        margin-bottom: 5%;
+        font-size: 220%;
+    }
+    .dragdrop{
+        max-width: 95%;
+        height: auto;
+    }
+    #dragdroptxt{
+        max-width: 90%;
+        max-height: 90%;
+    }
+    .infosec2{
+        width: 95% !important;
+        margin-top: 1%;
+        margin-bottom: 5%;
+        height: 95%;
+    }
+    .mresultante{
+        width: 95%;
+        height: 95%;
+    }
+    #resultados{
+        width: 85%;
+    }
+    footer{
+        height: 5%;
+        
+    }
+    input{
+        width: 100px;
+    }
+
+    
   }
