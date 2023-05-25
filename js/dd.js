@@ -94,6 +94,8 @@ function parseNumber(value) {
       var partes = value.split('/');
       var numerador = parseFloat(partes[0]);
       var denominador = parseFloat(partes[1]);
+      
+
       return [ numerador + "/" + denominador ];
     }
   } catch (error) {
@@ -155,7 +157,7 @@ function gcd(a, b) {
   return gcd(b, a % b);
 }
 
-function calcular() {
+function calcular() { 
   var tablaMatriz = document.getElementById('tablaMatriz');
   var filas = tablaMatriz.rows.length;
   var columnas = tablaMatriz.rows[0].cells.length;
@@ -168,8 +170,15 @@ function calcular() {
       var celdaMatriz = filaMatriz.cells[j];
       var entradaMatriz = celdaMatriz.querySelector('input');
       var contenido = entradaMatriz.value;
+
       // Aplicar el filtro de caracteres no admitidos
       // ---- Aqui se deberia aplicar un filtro pero que acepte fracciones
+
+           // Verificar si el contenido es una letra
+      if (isNaN(parseFloat(contenido))) {
+        alert("MATRIZ INVÁLIDA: Se ha ingresado una letra. Por favor, verifique que se introdujeron solo números en las celdas.");
+        return; // Detener el cálculo
+      }
 
       /*var elementosNoAdmitidos = /[^0-9.\/-]/g.test(contenido);
       if (elementosNoAdmitidos) {
@@ -186,6 +195,10 @@ function calcular() {
         var partes = contenido.split('/');
         var numerador = parseFloat(partes[0]);
         var denominador = parseFloat(partes[1]);
+        if (isNaN(parseFloat(denominador))) {
+          alert("MATRIZ INVÁLIDA: Se ha ingresado una letra. Por favor, verifique que se introdujeron solo números en las celdas.");
+          return null;
+        }
         valor = [numerador, denominador];
       } else {
         valor = [parseFloat(contenido), 1]
