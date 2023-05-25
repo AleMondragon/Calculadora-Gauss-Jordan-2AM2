@@ -167,7 +167,7 @@ textarea{
     margin-top: 10px;
     width: 200px;
     background: #8806CE;
-    height: 60px;
+    height: 30px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -175,7 +175,7 @@ textarea{
     color: white;
     text-decoration: none;
     border-radius: 1rem;
-    
+    text-align: center;
     
     }
 
@@ -260,14 +260,14 @@ nav{
 
 /*TAMAÑO DE LA CAJA SECCIÓN 1 */
 .infosec1{
-    height: 800px;
+    min-height: 400px;
     width: 1000px;
     background-color: white;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
-    padding: 5px;
+    padding: 2%;
     border-radius: 25px;
     position: relative;
     margin-bottom: 50px;
@@ -363,7 +363,7 @@ span .calculos{
    
 
         .infosec2{
-            height: 800px;
+            min-height: 400px;
             width: 1000px;
             background-color: white;
             display: flex;
@@ -431,6 +431,9 @@ span .calculos{
     align-items: center;
  }
 
+ input{
+    width: 100px;
+ }
  .inputp{
     border-radius: 1rem;
     width: 200px;
@@ -439,6 +442,7 @@ span .calculos{
  
     border-color: #C6CDD3;
  }
+
 
  #tablaMatriz {
     border-collapse: separate; /* En lugar de "collapse" */
@@ -465,4 +469,93 @@ span .calculos{
             max-width: 700px;
             overflow-x: auto;
             overflow-y: auto;
+  }
+
+  .info{
+    display: none;
+  }
+
+  .infosec2{
+    display: none;
+  }
+  
+  
+
+  @media screen and (max-width:1300px) {
+    .PRINCIPAL{
+        width: 100%;
+        height: 100%;
+    }
+    .inicio{
+        display: flex;
+        flex-direction: column;
+        align-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+    }
+    h1{
+        text-align: center;
+        font-size: 380%;
+        padding-top: 2%;
+        padding-bottom: 2%;
+        margin-top: 5%;
+    }
+    .encabezado{
+        height: 100%;
+        padding-top:1%;
+        padding-bottom: 5%;
+    }
+    nav{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: 40vw;
+        margin-top: 1%  ;
+    }
+    .boton1{
+        padding: 1%;
+    }
+    .main{
+        max-width: 100%;
+    }
+    .infosec1{
+        max-width: 90%;
+        height: auto;
+        max-height: 780px;
+        min-height: 740px;
+        justify-content: flex-start;
+    }
+    .infosec2{
+        max-width: 95%;
+        height: auto;
+        min-height: 500px;
+        justify-content: flex-start;
+        flex-direction: column;
+    }
+    .mresultante{
+        padding: 3%;
+    }
+      
+      .boton1 {
+        flex-basis: 25%;
+        text-align: center;
+    
+      }
+      
+      #botonfinal{
+        margin-top: auto;
+      }
+      .calculos {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+      }
+      
+      .boton1 {
+        flex-basis: 15%;
+        text-align: center;
+    
+      }
+
   }

@@ -21,6 +21,8 @@ function crearTabla() {
 
   var encabezado = document.createElement("h2");
   encabezado.textContent = "Introduce los elementos de la matriz";
+  encabezado.id = "encabezadoMatriz";
+
 
   var padreTabla = tablaMatriz.parentNode;
   padreTabla.insertBefore(encabezado, tablaMatriz);
@@ -167,6 +169,11 @@ function calcular() {
   if (!validarMatriz()) {
     return;
   }
+  let view = document.getElementsByClassName("infosec2");
+for (var i = 0; i < view.length; i++) {
+  view[i].style.display = "flex";
+}
+
 
   // Crear la matriz a partir de los inputs
   var matriz = crearMatriz();
@@ -247,6 +254,10 @@ function borrarNumeros() {
   while (tablaMatriz.rows.length > 0) {
     tablaMatriz.deleteRow(0);
   }
+  let view = document.getElementsByClassName("infosec2");
+  for (var i = 0; i < view.length; i++) {
+    view[i].style.display = "none";
+  }
 
   // Borrar la matriz resultado
   while (tablaResultado.rows.length > 0) {
@@ -265,6 +276,10 @@ function borrarNumeros() {
     input.value = "";
   });
 
+  var encabezado = document.getElementById("encabezadoMatriz");
+  if (encabezado) {
+    encabezado.remove();
+  }
   // Restaurar los controles de entrada
   document.getElementById("filas").style.display = "block";
   document.getElementById("columnas").style.display = "block";
