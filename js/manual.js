@@ -169,6 +169,14 @@ function calcular() {
   if (!validarMatriz()) {
     return;
   }
+  var tablaResultado = document.getElementById("tablaResultado");
+  while (tablaResultado.rows.length > 0) {
+    tablaResultado.deleteRow(0);
+  }
+  var inputsResultado = document.querySelectorAll("#tablaResultado input[type='text']");
+  inputsResultado.forEach(function(input) {
+    input.value = "";
+  });
   let view = document.getElementsByClassName("infosec2");
 for (var i = 0; i < view.length; i++) {
   view[i].style.display = "flex";
