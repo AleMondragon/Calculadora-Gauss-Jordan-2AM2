@@ -39,7 +39,6 @@ function dropHandler(evento) {
 
 
 document.getElementById("btnValidarTabla").addEventListener("click", function() {
-  
   var contenido = document.getElementById("dragdroptxt").value;
   var matriz = contenido.split('\n').map(function(fila) {
     return fila.split(' ').map(parseNumber);
@@ -137,7 +136,7 @@ function seleccionarArchivo() {
 }
 
 // Obtener el archivo seleccionado
-document.getElementById("inputArchivo").addEventListener("change", function() {
+document.getElementById("inputArchivo").addEventListener("change", function() {   
   var archivo = this.files[0];
 
   // Leer el contenido del archivo
@@ -145,7 +144,28 @@ document.getElementById("inputArchivo").addEventListener("change", function() {
   lector.onload = function(evento) {
     // Asignar el contenido del archivo al textarea
     document.getElementById("dragdroptxt").value = evento.target.result;
-  };
+    var contenido = evento.target.result;
+    // Verificar si el contenido del archivo contiene elementos no admitidos, incluyendo números negativos
+    var elementosNoAdmitidos = /[^0-9\/.\s-]/g.test(contenido);
+      
+    if (elementosNoAdmitidos) {
+      // Mostrar diálogo de confirmación para reemplazar elementos no admitidos por ceros
+      var confirmacion = confirm('El archivo contiene elementos no admitidos. ¿Desea reemplazarlos por ceros?');
+      
+      if (confirmacion) {
+        // Reemplazar elementos no admitidos por ceros utilizando una función de reemplazo personalizada
+        contenido = contenido.replace(/[^0-9\/.\s-]/g, function(match) {
+          if (match === '-') {
+            return ''; // Conservar el signo negativo
+          } else {
+            return '0'; // Reemplazar por cero
+          }
+        });
+      } else {
+        return; // Cancelar la función si no se acepta reemplazar los elementos no admitidos
+      }
+    }
+  }
   lector.readAsText(archivo);
 });
 
