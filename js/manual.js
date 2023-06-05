@@ -404,3 +404,208 @@ document.getElementById("botonEliminarColumna").addEventListener("click", functi
     fila.deleteCell(columnas);
   }
 });
+
+// Crear la matriz que solo tiene las variables a operar, ommitiendo la columna de resultados.
+  function crearMatrizSec() 
+  {
+    var matriz = [];
+    var filas = document.getElementById("matriz").rows;
+  
+    for (var i = 0; i < filas.length; i++) 
+    {
+      var celdas = filas[i].cells;
+      matriz[i] = [];
+  
+      for (var j = 0; j < celdas.length - 1; j++) 
+      {
+        var valor = celdas[j].childNodes[0].value;
+  
+        // Validar si se ingresó una letra
+        if (isNaN(parseFloat(valor))) 
+        {
+          alert("MATRIZ INVÁLIDA: Se ha ingresado una letra. Por favor, verifique que se introdujeron solo números en las celdas.");
+          return null;
+        }
+  
+        // Convertir el valor a fracción si es necesario
+        if (valor.indexOf("/") >= 0) 
+        {
+          // Si es una fracción, convertirla a decimal y luego a fracción nuevamente
+          var partes = valor.split("/");
+          var numerador = parseFloat(partes[0]);
+          var denominador = parseFloat(partes[1]);
+          if (isNaN(parseFloat(denominador))) 
+          {
+            alert("MATRIZ INVÁLIDA: Se ha ingresado una letra. Por favor, verifique que se introdujeron solo números en las celdas.");
+            return null;
+          }
+          valor = [numerador, denominador];
+        } 
+        else 
+        {
+          valor = [parseFloat(valor), 1];
+        }
+  
+        matriz[i][j] = valor;
+      }
+    }
+    return matriz;
+  }
+
+  function inversa()
+  {
+    // Jalar los datos de las entradas para la matriz que calculamos con Gauss-Jordan
+    var matriz = crearMatrizSec();
+    var u = matriz;
+    var l = crearMatrizVacia();
+    var n = matriz.length;           //filas
+    var m = matriz[0].length;        //columnas
+    var c;
+    var r;
+    var k;
+
+    // Hace ceros abajo
+   
+    if(n !== m)
+    {
+      alert("TU MATRIZ NO ES CUADRADA, POR LO TANTO, NO LLEGO A LA IDENTIDAD Y POR LO TANTO, NO ES INVERSIBLE");
+      return;
+    }
+    else
+    {
+      for(k = 0; k < m; k++)
+      {
+        // Hace ceros abajo MEDIANTE UN PROCESO LLAMADO 'FACTORIZACIÓN LU', ESTO NOS VA A AYUDAR A OBTENER LA INVERSA
+        for(r = 0; r < m; r++)
+        {
+          if(r === k)
+          {
+            l[k][r] = 1;
+            console.log("aquí k vale: ", k);
+            console.log("aquí r vale: ", r);
+            console.log("aquí l vale: ", l);
+            console.log("aquí vale l = : ", l[k][r]);
+          }
+          if(k < r)
+          {
+            let factor = ((matriz[r][k][0])/(matriz[k][k][0]));
+            l[r][k] = factor;
+            for(c = 0; c < m; c++)
+            {
+              matriz[r][c][0] = (matriz[r][c][0]) - ((factor) * (matriz[k][c][0]));
+              u[r][c][0] = matriz[r][c][0];
+            }
+          }
+        }
+      }
+    }
+    
+    //crea la tabla con la matriz Inversa
+    crearTablaInversa(u);
+
+  }
+
+  // Crear la tabla con la matriz inversa
+
+  function crearTablaInversa(matriz) 
+  {
+    // Obtener la tabla y su cuerpo
+    var tablaResultado = document.getElementById("tablaInversa");
+    var cuerpoTablaResultado = tablaResultado.createTBody();
+    
+    // Crear cada fila y sus celdas
+    for (var i = 0; i < matriz.length; i++) 
+    {
+      var filaResultado = cuerpoTablaResultado.insertRow();
+      for (var j = 0; j < matriz[i].length; j++) 
+      {
+        var celdaResultado = filaResultado.insertCell();
+        var entradaResultado = document.createElement("input");
+        entradaResultado.type = "text";
+        entradaResultado.name = "resultado[" + i + "][" + j + "]";
+    
+        // Convertir el número a fracción
+        var fraccion = decimalAFraccion(matriz[i][j][0], matriz[i][j][1]);
+    
+        entradaResultado.value = fraccion;
+    
+        celdaResultado.appendChild(entradaResultado);
+      }
+    }
+  }
+  
+  //CREAMOS UNA MATRIZ VACÍA PARA PODER OBTENER LA INVERSA Y EL DETERMINANTE
+
+  function crearMatrizVacia() 
+  {
+    var matriz = [];                                     //PRIMER ARREGLO UNIDIMENSIONAL
+    var filas = document.getElementById("matriz").rows;   
+          
+    for (var i = 0; i < filas.length; i++) 
+    {
+      var celdas = filas[i].cells;
+      matriz[i] = [];                                   //SE VUELVE ARREGLO BIDIMENSIONAL
+          
+      for (var j = 0; j < celdas.length - 1; j++) 
+      {
+        matriz[i][j] = 0;                               //LA MATRIZ ESTÁ TOTALMENTE VACIA
+      }
+    }
+
+    return matriz;
+  }
+
+  //CALCULAR EL DETERMINANTE DE LA MATRIZ A TRAVÉS DE RECURSIVIDAD
+
+  function determinante(matriz)
+  {
+    var determinante = 0;     //LO USAREMOS COMO SUMADOR PARA EL PASO BASE
+    var aux = matriz;         //CREA UNA MATRIZ AUXILIAR
+    var sum = 0;              //SERÁN SUMADORES 
+    var sum2 = 0;             //QUE UTILIZAREMOS PARA EL PASO INDUCTIVO/RECURSIVO
+    var filas = matriz.length;
+    var columnas = matriz[0].length;
+
+    if(filas !== columnas)    //UN DETERMINANTE SOLO SE PUEDE OBTENER EN MATRICES CUADRADAS.
+    {
+      console.log("no hay determinante jovenazo");
+      return;
+    }
+    else                      //PODEMOS EMPEZAR A CALCULAR EL DETERMINANTE
+    {
+      if(filas === 2 && columnas === 2)    //ESTE ES EL PASO BASE, SABEMOS COMO CALCULAR UN
+      {                                    //DETERMINANTE DE 2X2
+        determinante = ((matriz[0][0] * matriz[1][1]) - (matriz[0][1] * matriz[1][0]));
+        return determinante;
+      }
+      else   //filas !== 2 && columnas !== 2, TENEMOS UNA MATRIZ DE 3X3 O DE 5X5 O ASÍ
+      {
+        g = crearMatrizVacia();            //VAMOS A DAR UN PASO EN DIAGONAL HACIA LA DERECHA 
+        for(var i = 0; i < filas ; i++)    //NOS QUITAMOS UNA FILA Y UNA COLUMNA DE LA MATRIZ 
+        {
+          for(let j = 0; j < columnas ; j++)
+          {
+            g[i][j] = aux[j+1][i+1][0]    //SI TUVIERAMOS UNA MATRIZ DE 4X4, SE VOLVERÍA UNA MATRIZ
+          }                               //DE 3X3    
+        }
+        for(let s = 0; s < filas ; s++)   //AQUÍ EMPIEZA EL PASO INDUCTIVO, VAMOS A IR REDUCIENDO LA 
+        {                                 //MATRIZ, HASTA OBTENER UNA DE 2X2 DEL PASO BASE
+          if(s%2 === 0)          //REVISA
+          {                      //QUE EL COOFACTOR SEA PAR
+            sum = matriz[0][s][0] * determinante(g);
+            determinante = determinante + sum
+          }
+          else                   //EL COOFACTOR ES IMPAR Y TENEMOS UNA RESTA
+          {
+            sum = matriz[0][s][0] * determinante(g);
+            determinante = determinante - sum
+          }
+        }
+        return determinante;     //ESTA DEBERÍA DE SER LA DETERMINANTE
+      }
+    }
+  }
+
+
+
+
