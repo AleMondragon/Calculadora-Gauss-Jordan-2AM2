@@ -405,7 +405,8 @@ document.getElementById("botonEliminarColumna").addEventListener("click", functi
   }
 });
 
-// Crear la matriz que solo tiene las variables a operar, ommitiendo la columna de resultados.
+
+  // Crear la matriz que solo tiene las variables a operar, ommitiendo la columna de resultados.
   function crearMatrizSec() 
   {
     var matriz = [];
@@ -454,6 +455,7 @@ document.getElementById("botonEliminarColumna").addEventListener("click", functi
 
   function inversa()
   {
+
     // Jalar los datos de las entradas para la matriz que calculamos con Gauss-Jordan
     var matriz = crearMatrizSec();
     var u = matriz;
@@ -464,6 +466,15 @@ document.getElementById("botonEliminarColumna").addEventListener("click", functi
     var r;
     var k;
 
+    //VARIABLES PARA GAUSS-JORDAN
+    var filasGJ = l.length;
+    var columnasGJ = l[0].length;
+    var j;
+    var i;
+    var z;
+    var p = [];
+    console.log("aquí vale/mide matriz vacia L = : ", l[0].length);
+
     // Hace ceros abajo
    
     if(n !== m)
@@ -473,36 +484,64 @@ document.getElementById("botonEliminarColumna").addEventListener("click", functi
     }
     else
     {
-      for(k = 0; k < m; k++)
+      //METE LAS ENTRADAS DEL USUARIO EN UNA MATRIZ VACÍA DE UN LADO (AGREGA UNAS COLUMNAS)
+      for(k = 0; k < l.length; k++)     //LEE FILAS
       {
-        // Hace ceros abajo MEDIANTE UN PROCESO LLAMADO 'FACTORIZACIÓN LU', ESTO NOS VA A AYUDAR A OBTENER LA INVERSA
-        for(r = 0; r < m; r++)
+        for(c = 0 ; c < (l[0].length)/2 ; c++) //LEE COLUMNAS
         {
-          if(r === k)
+          l[k][c] = matriz[k][c][0];
+        }
+      }
+      //AGREGA COLUMNAS PARA QUE ESTÉ POR AHÍ LA IDENTIDAD
+      for(let s = 0; s < l.length ; s++)            //LEE FILAS
+      {
+        for(r = (l[0].length)/2 ; r < l[0].length ; r++)        //LEE COLUMNAS
+        {
+          if(r === (s+(l[0].length)/2))
           {
-            l[k][r] = 1;
-            console.log("aquí k vale: ", k);
-            console.log("aquí r vale: ", r);
-            console.log("aquí l vale: ", l);
-            console.log("aquí vale l = : ", l[k][r]);
+            l[s][r] = 1;
           }
-          if(k < r)
+          else
           {
-            let factor = ((matriz[r][k][0])/(matriz[k][k][0]));
-            l[r][k] = factor;
-            for(c = 0; c < m; c++)
-            {
-              matriz[r][c][0] = (matriz[r][c][0]) - ((factor) * (matriz[k][c][0]));
-              u[r][c][0] = matriz[r][c][0];
-            }
+            l[s][r] = 0;
           }
         }
       }
+      console.log("aquí vale matriz L ASUMAKINA = : ", l);
     }
-    
-    //crea la tabla con la matriz Inversa
-    crearTablaInversa(u);
 
+    // Resolver la matriz mediante Gauss-Jordan para nuestra matriz "l[a][b]"
+    console.log("Aquí las filas valen: ", l[0].length);
+    console.log("Aquí las columnas valen: ", l.length);
+    for(i = 0 ; i < l.length ; i++)
+    {
+      for(j = 0; j < ((l[0].length)/2); j++)
+      {
+        //CREO MI PIVOTE
+        if(i !== j)
+        {
+          var pivote = (l[j][i])/(l[i][i]);
+        
+        for(z = 0; z < ((l[0].length)-1) ; z++)
+        
+          l[j][z] = l[j][z] - (pivote * l[i][z]);
+        }
+      }
+    }
+
+    // HAGO MI DIAGONAL PRINCIPAL 1'S
+    for(i = 0; i < filasGJ; i++)
+    {
+      divisor = l[i][i];
+      for(j = 0; j < columnasGJ ; j++)
+      {
+        l[i][j] = (l[i][j])/divisor;
+      }
+    }
+
+    //crea la tabla con la matriz Inversa
+    crearTablaInversa(l);
+    console.log("determinante: ",determinante(u));
   }
 
   // Crear la tabla con la matriz inversa
@@ -516,9 +555,11 @@ document.getElementById("botonEliminarColumna").addEventListener("click", functi
     // Crear cada fila y sus celdas
     for (var i = 0; i < matriz.length; i++) 
     {
+      console.log("el tamaño de mis filas es: ", matriz.length);
       var filaResultado = cuerpoTablaResultado.insertRow();
-      for (var j = 0; j < matriz[i].length; j++) 
+      for (var j = 0; j < (matriz[i].length); j++) 
       {
+        console.log("el tamaño de mis filas es: ", matriz[i].length);
         var celdaResultado = filaResultado.insertCell();
         var entradaResultado = document.createElement("input");
         entradaResultado.type = "text";
@@ -539,14 +580,14 @@ document.getElementById("botonEliminarColumna").addEventListener("click", functi
   function crearMatrizVacia() 
   {
     var matriz = [];                                     //PRIMER ARREGLO UNIDIMENSIONAL
-    var filas = document.getElementById("matriz").rows;   
+    var filas = document.getElementById("matriz").rows;
           
     for (var i = 0; i < filas.length; i++) 
     {
       var celdas = filas[i].cells;
       matriz[i] = [];                                   //SE VUELVE ARREGLO BIDIMENSIONAL
           
-      for (var j = 0; j < celdas.length - 1; j++) 
+      for (var j = 0; j < (celdas.length - 1)*2 ; j++) 
       {
         matriz[i][j] = 0;                               //LA MATRIZ ESTÁ TOTALMENTE VACIA
       }
@@ -559,6 +600,7 @@ document.getElementById("botonEliminarColumna").addEventListener("click", functi
 
   function determinante(matriz)
   {
+    var matriz = crearMatrizSec(); 
     var determinante = 0;     //LO USAREMOS COMO SUMADOR PARA EL PASO BASE
     var aux = matriz;         //CREA UNA MATRIZ AUXILIAR
     var sum = 0;              //SERÁN SUMADORES 
@@ -575,23 +617,23 @@ document.getElementById("botonEliminarColumna").addEventListener("click", functi
     {
       if(filas === 2 && columnas === 2)    //ESTE ES EL PASO BASE, SABEMOS COMO CALCULAR UN
       {                                    //DETERMINANTE DE 2X2
-        determinante = ((matriz[0][0] * matriz[1][1]) - (matriz[0][1] * matriz[1][0]));
-        return determinante;
+        return (((matriz[0][0][0] * matriz[1][1][0]) - (matriz[0][1][0] * matriz[1][0][0])));
       }
       else   //filas !== 2 && columnas !== 2, TENEMOS UNA MATRIZ DE 3X3 O DE 5X5 O ASÍ
       {
-        g = crearMatrizVacia();            //VAMOS A DAR UN PASO EN DIAGONAL HACIA LA DERECHA 
-        for(var i = 0; i < filas ; i++)    //NOS QUITAMOS UNA FILA Y UNA COLUMNA DE LA MATRIZ 
+        sum2++;
+        g = crearMatrizVacia();               //VAMOS A DAR UN PASO EN DIAGONAL HACIA LA DERECHA 
+        for(var i = sum2; i < filas ; i++)    //NOS QUITAMOS UNA FILA Y UNA COLUMNA DE LA MATRIZ 
         {
-          for(let j = 0; j < columnas ; j++)
+          for(let j = sum2; j < columnas ; j++)
           {
-            g[i][j] = aux[j+1][i+1][0]    //SI TUVIERAMOS UNA MATRIZ DE 4X4, SE VOLVERÍA UNA MATRIZ
-          }                               //DE 3X3    
+            g[i][j] = matriz[j][i][0]         //SI TUVIERAMOS UNA MATRIZ DE 4X4, SE VOLVERÍA UNA MATRIZ
+          }                                  //DE 3X3    
         }
-        for(let s = 0; s < filas ; s++)   //AQUÍ EMPIEZA EL PASO INDUCTIVO, VAMOS A IR REDUCIENDO LA 
-        {                                 //MATRIZ, HASTA OBTENER UNA DE 2X2 DEL PASO BASE
-          if(s%2 === 0)          //REVISA
-          {                      //QUE EL COOFACTOR SEA PAR
+        for(let s = 0; s < filas ; s++)    //AQUÍ EMPIEZA EL PASO INDUCTIVO, VAMOS A IR REDUCIENDO LA 
+        {                                  //MATRIZ, HASTA OBTENER UNA DE 2X2 DEL PASO BASE
+          if(s%2 === 0)                    //REVISA
+          {                                //QUE EL COOFACTOR SEA PAR
             sum = matriz[0][s][0] * determinante(g);
             determinante = determinante + sum
           }
@@ -601,10 +643,12 @@ document.getElementById("botonEliminarColumna").addEventListener("click", functi
             determinante = determinante - sum
           }
         }
+        console.log("determinante: ", determinante);
         return determinante;     //ESTA DEBERÍA DE SER LA DETERMINANTE
       }
     }
   }
+
 
 
 
