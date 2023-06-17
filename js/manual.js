@@ -596,21 +596,26 @@ document.getElementById("botonEliminarColumna").addEventListener("click", functi
     return matriz;
   }
 
-  //CALCULAR EL DETERMINANTE DE LA MATRIZ A TRAVÉS DE RECURSIVIDAD
+  //CALCULAR EL DETERMINANTE DE LA MATRIZ 
+function calcularDeterminante()
+  { 
+    // Obtener la matriz
+    var matriz = crearMatrizSec();
+  
+    // Validar la matriz
+    if (!validarMatriz()) {
+      return;
+    }
+  
+    var n = matriz.length;
+    var m = matriz[0].length;
+    console.log("mi m vale: ", m);
+    console.log("mi m vale: ", n);
+    var det = 1;
 
-  function determinante(matriz)
-  {
-    var matriz = crearMatrizSec(); 
-    var determinante = 0;     //LO USAREMOS COMO SUMADOR PARA EL PASO BASE
-    var aux = matriz;         //CREA UNA MATRIZ AUXILIAR
-    var sum = 0;              //SERÁN SUMADORES 
-    var sum2 = 0;             //QUE UTILIZAREMOS PARA EL PASO INDUCTIVO/RECURSIVO
-    var filas = matriz.length;
-    var columnas = matriz[0].length;
-
-    if(filas !== columnas)    //UN DETERMINANTE SOLO SE PUEDE OBTENER EN MATRICES CUADRADAS.
+    if (n !== m)    //UN DETERMINANTE SOLO SE PUEDE OBTENER EN MATRICES CUADRADAS.
     {
-      console.log("no hay determinante jovenazo");
+      alert("La matriz debe ser cuadrada para calcular el determinante.");
       return;
     }
     else                      //PODEMOS EMPEZAR A CALCULAR EL DETERMINANTE
@@ -621,34 +626,31 @@ document.getElementById("botonEliminarColumna").addEventListener("click", functi
       }
       else   //filas !== 2 && columnas !== 2, TENEMOS UNA MATRIZ DE 3X3 O DE 5X5 O ASÍ
       {
-        sum2++;
-        g = crearMatrizVacia();               //VAMOS A DAR UN PASO EN DIAGONAL HACIA LA DERECHA 
-        for(var i = sum2; i < filas ; i++)    //NOS QUITAMOS UNA FILA Y UNA COLUMNA DE LA MATRIZ 
+            // Realizar la eliminación de Gauss-Jordan para convertir la matriz a una forma escalonada
+        for (var j = 0; j < n - 1; j++) 
         {
-          for(let j = sum2; j < columnas ; j++)
+          for (var i = j + 1; i < n; i++) 
           {
-            g[i][j] = matriz[j][i][0]         //SI TUVIERAMOS UNA MATRIZ DE 4X4, SE VOLVERÍA UNA MATRIZ
-          }                                  //DE 3X3    
-        }
-        for(let s = 0; s < filas ; s++)    //AQUÍ EMPIEZA EL PASO INDUCTIVO, VAMOS A IR REDUCIENDO LA 
-        {                                  //MATRIZ, HASTA OBTENER UNA DE 2X2 DEL PASO BASE
-          if(s%2 === 0)                    //REVISA
-          {                                //QUE EL COOFACTOR SEA PAR
-            sum = matriz[0][s][0] * determinante(g);
-            determinante = determinante + sum
-          }
-          else                   //EL COOFACTOR ES IMPAR Y TENEMOS UNA RESTA
-          {
-            sum = matriz[0][s][0] * determinante(g);
-            determinante = determinante - sum
+            var ratio = matriz[i][j][0] / matriz[j][j][0];
+            for (var k = j; k < n; k++) 
+            {
+              matriz[i][k][0] -= ratio * matriz[j][k][0];
+              matriz[i][k][1] = matriz[j][k][1]; // Mantener el denominador igual
+            }
           }
         }
-        console.log("determinante: ", determinante);
-        return determinante;     //ESTA DEBERÍA DE SER LA DETERMINANTE
+  
+        // Calcular el determinante multiplicando los elementos diagonales
+        for (var i = 0; i < n; i++) 
+        {
+          det *= matriz[i][i][0] / matriz[i][i][1];
+        }
+  
+        // Mostrar el resultado
+        alert("El determinante de la matriz es: " + det);
       }
     }
   }
-
 
 
 
