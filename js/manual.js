@@ -453,127 +453,165 @@ document.getElementById("botonEliminarColumna").addEventListener("click", functi
     return matriz;
   }
 
-  function inversa()
-  {
+//COMENZAMOS A CÁLCULAR LA INVERSA
 
-    // Jalar los datos de las entradas para la matriz que calculamos con Gauss-Jordan
-    var matriz = crearMatrizSec();
-    var u = matriz;
-    var l = crearMatrizVacia();
-    var n = matriz.length;           //filas
-    var m = matriz[0].length;        //columnas
-    var c;
-    var r;
-    var k;
-
-    //VARIABLES PARA GAUSS-JORDAN
-    var filasGJ = l.length;
-    var columnasGJ = l[0].length;
-    var j;
-    var i;
-    var z;
-    var p = [];
-    console.log("aquí vale/mide matriz vacia L = : ", l[0].length);
-
-    // Hace ceros abajo
-   
-    if(n !== m)
+    function inversa()
     {
-      alert("TU MATRIZ NO ES CUADRADA, POR LO TANTO, NO LLEGO A LA IDENTIDAD Y POR LO TANTO, NO ES INVERSIBLE");
-      return;
-    }
-    else
-    {
-      //METE LAS ENTRADAS DEL USUARIO EN UNA MATRIZ VACÍA DE UN LADO (AGREGA UNAS COLUMNAS)
-      for(k = 0; k < l.length; k++)     //LEE FILAS
+  
+      // Jalar los datos de las entradas para la matriz que calculamos con Gauss-Jordan
+      var matriz = crearMatrizSec();
+      var u = matriz;
+      var l = crearMatrizVacia();
+      var n = matriz.length;           //filas
+      var m = matriz[0].length;        //columnas
+      var c;
+      var r;
+      var k;
+  
+      //VARIABLES PARA GAUSS-JORDAN
+      var filasGJ = l.length;
+      var columnasGJ = l[0].length;
+      var j;
+      var i;
+      var z;
+      var p = [];
+  
+      // Hace ceros abajo
+     
+      if(n !== m)
       {
-        for(c = 0 ; c < (l[0].length)/2 ; c++) //LEE COLUMNAS
-        {
-          l[k][c] = matriz[k][c][0];
-        }
+        alert("TU MATRIZ NO ES CUADRADA, POR LO TANTO, NO LLEGO A LA IDENTIDAD Y POR LO TANTO, NO ES INVERSIBLE");
+        return;
       }
-      //AGREGA COLUMNAS PARA QUE ESTÉ POR AHÍ LA IDENTIDAD
-      for(let s = 0; s < l.length ; s++)            //LEE FILAS
+      else
       {
-        for(r = (l[0].length)/2 ; r < l[0].length ; r++)        //LEE COLUMNAS
+        //METE LAS ENTRADAS DEL USUARIO EN UNA MATRIZ VACÍA DE UN LADO (AGREGA UNAS COLUMNAS)
+        for(k = 0; k < l.length; k++)     //LEE FILAS
         {
-          if(r === (s+(l[0].length)/2))
+          for(c = 0 ; c < (l[0].length)/2 ; c++) //LEE COLUMNAS
           {
-            l[s][r] = 1;
-          }
-          else
-          {
-            l[s][r] = 0;
+            l[k][c] = matriz[k][c][0];
           }
         }
-      }
-      console.log("aquí vale matriz L ASUMAKINA = : ", l);
-    }
 
-    // Resolver la matriz mediante Gauss-Jordan para nuestra matriz "l[a][b]"
-    console.log("Aquí las filas valen: ", l[0].length);
-    console.log("Aquí las columnas valen: ", l.length);
-    for(i = 0 ; i < l.length ; i++)
-    {
-      for(j = 0; j < ((l[0].length)/2); j++)
-      {
-        //CREO MI PIVOTE
-        if(i !== j)
+        //AGREGA COLUMNAS PARA QUE ESTÉ POR AHÍ LA IDENTIDAD
+        for(let s = 0; s < l.length ; s++)            //LEE FILAS
         {
-          var pivote = (l[j][i])/(l[i][i]);
+          for(r = (l[0].length)/2 ; r < l[0].length ; r++)        //LEE COLUMNAS
+          {
+            if(r === (s+(l[0].length)/2))
+            {
+              l[s][r] = 1;
+            }
+            else
+            {
+              l[s][r] = 0;
+            }
+          }
+        }
+      }
+      
+      var colta = 0;
+      // Resolver la matriz mediante Gauss-Jordan para nuestra matriz "l[a][b]"
+      for(i = 0 ; i < l.length ; i++)
+      {
+        console.log("ya repetí este paso esta cantidad de veces: ", colta);
+        console.log("mi l[i][i] vale ahorita: ", l[i][i]);
+        console.log("mi i vale ahorita: ", i);
+        if(l[i][i] === 0)
+        {
+          console.log("división entre 0");
+          alert("división por cero");
+        }
         
-        for(z = 0; z < ((l[0].length)-1) ; z++)
-        
-          l[j][z] = l[j][z] - (pivote * l[i][z]);
+        for(j = 0; j < (l.length); j++)
+        {
+          //CREO MI PIVOTE
+          if(i !== j)
+          {
+            console.log("ya entré a este paso: ");
+            var pivote = (l[j][i])/(l[i][i]);
+            console.log("ya repetí este paso esta cantidad de veces: ", colta);
+            console.log("mi l[i][i] vale ahorita: ", l[i][i]);
+            console.log("mi i vale ahorita: ", i);
+          
+            for(z = 0; z < ((l[0].length)) ; z++)
+            {
+              console.log("ya entré a este paso interesante asumakina: ");
+              l[j][z] = l[j][z] - (pivote * l[i][z]);
+            }
+          }
+        }
+        colta++;
+      }
+  
+      // HAGO MI DIAGONAL PRINCIPAL 1'S
+      for(i = 0; i < l.length; i++)
+      {
+        divisor = l[i][i];
+        for(j = 0; j < l[0].length ; j++)
+        {
+          l[i][j] = (l[i][j])/divisor;
+        }
+      }
+      
+    //METE LA INVERSA EN OTRA MATRIZ PARA IMPRIMIRLA EN PANTALLA
+
+    let fil = (l[0].length)/2;
+
+    for(let s = 0; s < l.length ; s++)            //LEE FILAS
+    {
+      for(let r = 0 ; r < (l[0].length)/2 ; r++)        //LEE COLUMNAS
+      {
+        u[s][r][0]= l[s][fil];
+        fil++;
+        if(fil === l[0].length)
+        {
+          fil = (l[0].length)/2;
         }
       }
     }
 
-    // HAGO MI DIAGONAL PRINCIPAL 1'S
-    for(i = 0; i < filasGJ; i++)
-    {
-      divisor = l[i][i];
-      for(j = 0; j < columnasGJ ; j++)
-      {
-        l[i][j] = (l[i][j])/divisor;
-      }
-    }
+      //crea la tabla con la matriz Inversa
+      crearTablaInversa(u);
 
-    //crea la tabla con la matriz Inversa
-    crearTablaInversa(l);
-    console.log("determinante: ",determinante(u));
-  }
+    }
 
   // Crear la tabla con la matriz inversa
+      //crea la tabla con la matriz Inversa
+      crearTablaInversa(u);
 
-  function crearTablaInversa(matriz) 
-  {
-    // Obtener la tabla y su cuerpo
-    var tablaResultado = document.getElementById("tablaInversa");
-    var cuerpoTablaResultado = tablaResultado.createTBody();
-    
-    // Crear cada fila y sus celdas
-    for (var i = 0; i < matriz.length; i++) 
+    }
+  
+    // Crear la tabla con la matriz inversa
+  
+    function crearTablaInversa(matriz) 
     {
-      console.log("el tamaño de mis filas es: ", matriz.length);
-      var filaResultado = cuerpoTablaResultado.insertRow();
-      for (var j = 0; j < (matriz[i].length); j++) 
+      // Obtener la tabla y su cuerpo
+      var tablaResultado = document.getElementById("tablaInversa");
+      var cuerpoTablaResultado = tablaResultado.createTBody();
+      
+      // Crear cada fila y sus celdas
+      for (var i = 0; i < matriz.length; i++) 
       {
-        console.log("el tamaño de mis filas es: ", matriz[i].length);
-        var celdaResultado = filaResultado.insertCell();
-        var entradaResultado = document.createElement("input");
-        entradaResultado.type = "text";
-        entradaResultado.name = "resultado[" + i + "][" + j + "]";
-    
-        // Convertir el número a fracción
-        var fraccion = decimalAFraccion(matriz[i][j][0], matriz[i][j][1]);
-    
-        entradaResultado.value = fraccion;
-    
-        celdaResultado.appendChild(entradaResultado);
+
+        var filaResultado = cuerpoTablaResultado.insertRow();
+        for (var j = 0; j < (matriz[i].length); j++) 
+        {
+          var celdaResultado = filaResultado.insertCell();
+          var entradaResultado = document.createElement("input");
+          entradaResultado.type = "text";
+          entradaResultado.name = "resultado[" + i + "][" + j + "]";
+      
+          // Convertir el número a fracción
+          var fraccion = decimalAFraccion(matriz[i][j][0], matriz[i][j][1]);
+      
+          entradaResultado.value = fraccion;
+      
+          celdaResultado.appendChild(entradaResultado);
+        }
       }
     }
-  }
   
   //CREAMOS UNA MATRIZ VACÍA PARA PODER OBTENER LA INVERSA Y EL DETERMINANTE
 
