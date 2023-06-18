@@ -649,8 +649,8 @@ document.getElementById("botonEliminarColumna").addEventListener("click", functi
 
 function calcularDeterminante() {
   // Obtener la matriz
-  // var matriz = crearMatrizSec();
-  var matriz = crearMatriz(); 
+  var matriz = crearMatrizSec();
+  
 
   // Validar la matriz
   if (!validarMatriz()) {
@@ -658,9 +658,8 @@ function calcularDeterminante() {
   }
 
   var n = matriz.length;
-  // var m = matriz[0].length;
-  var m = matriz[0].length -1;
-
+  var m = matriz[0].length;
+  
   // Verificar si la matriz es cuadrada
   if (n !== m) {
     alert("La matriz debe ser cuadrada para calcular el determinante.");
