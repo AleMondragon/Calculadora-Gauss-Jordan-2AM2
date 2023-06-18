@@ -646,7 +646,8 @@ document.getElementById("botonEliminarColumna").addEventListener("click", functi
   }
 
   //CALCULAR EL DETERMINANTE DE LA MATRIZ 
-function calcularDeterminante()
+
+  function calcularDeterminante()
   { 
     // Obtener la matriz
     var matriz = crearMatrizSec();
@@ -696,11 +697,22 @@ function calcularDeterminante()
         }
   
         // Mostrar el resultado
-        alert("El determinante de la matriz es: " + det);
+        alert("El determinante de la matriz es: " + Math.round(det));
       }
     }
   }
 
+//ESTO DE ACÁ LO ENCONTRÉ EN INTERNET, Y LO USÉ PARA OBTENER LOS NUMERADORES Y DENOMINADORES Y PODER MOSTRAR FRACCIONES.
+
+  decToFrac = dec =>
+  [...Array(1000).keys()].flatMap(
+    i => [...Array(1000).keys()].map(
+      j => [
+        i + 1, j + 1, (i + 1) / (j + 1),
+        Math.abs(((i + 1) / (j + 1)) - dec)
+      ]
+    )
+  ).sort((a, b) => a[3] - b[3])[0].slice(0, 2)
 
 
 
