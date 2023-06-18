@@ -646,9 +646,10 @@ document.getElementById("botonEliminarColumna").addEventListener("click", functi
   }
 
 // Función para calcular el determinante de una matriz
- function calcularDeterminante() {
+
+function calcularDeterminante() {
   // Obtener la matriz
-  var matriz = crearMatriz();
+  var matriz = crearMatrizSec();
 
   // Validar la matriz
   if (!validarMatriz()) {
@@ -667,16 +668,15 @@ document.getElementById("botonEliminarColumna").addEventListener("click", functi
   var det = determinanteRecursivo(matriz);
 
   // Mostrar el resultado
-  alert("El determinante de la matriz es: " + det);
+  alert("El determinante de la matriz es: " + Math.round(det));
 }
 
 // Función recursiva para calcular el determinante de una matriz
 function determinanteRecursivo(matriz) {
   var n = matriz.length;
-
   // Caso base: matriz de 1x1
   if (n === 1) {
-    return matriz[0][0][0] / matriz[0][0][1]; // Devolver la fracción como resultado
+    return Math.round(matriz[0][0][0] / matriz[0][0][1]); // Devolver la fracción como resultado
   }
 
   var det = 0;
@@ -693,7 +693,7 @@ function determinanteRecursivo(matriz) {
     det += (j % 2 === 0) ? cofactor : -cofactor;
   }
 
-  return det;
+  return Math.round(det);
 }
 
 // Función para obtener una submatriz eliminando un renglón y una columna específicos
@@ -715,7 +715,6 @@ function obtenerSubmatriz(matriz, iEliminar, jEliminar) {
 
   return submatriz;
 }
-
 
 
 
