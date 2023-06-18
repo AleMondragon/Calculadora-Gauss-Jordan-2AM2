@@ -455,18 +455,18 @@ document.getElementById("botonEliminarColumna").addEventListener("click", functi
 
 //COMENZAMOS A CÁLCULAR LA INVERSA
 
-    function inversa()
-    {
+function inversa()
+{
   
-      // Jalar los datos de las entradas para la matriz que calculamos con Gauss-Jordan
-      var matriz = crearMatrizSec();
-      var u = matriz;
-      var l = crearMatrizVacia();
-      var n = matriz.length;           //filas
-      var m = matriz[0].length;        //columnas
-      var c;
-      var r;
-      var k;
+    // Jalar los datos de las entradas para la matriz que calculamos con Gauss-Jordan
+    var matriz = crearMatrizSec();
+    var u = matriz;
+    var l = crearMatrizVacia();
+    var n = matriz.length;           //filas
+    var m = matriz[0].length;        //columnas
+    var c;
+    var r;
+    var k;
   
       //VARIABLES PARA GAUSS-JORDAN
       var filasGJ = l.length;
@@ -511,11 +511,9 @@ document.getElementById("botonEliminarColumna").addEventListener("click", functi
         }
       }
       
-      var colta = 0;
       // Resolver la matriz mediante Gauss-Jordan para nuestra matriz "l[a][b]"
       for(i = 0 ; i < l.length ; i++)
       {
-        console.log("ya repetí este paso esta cantidad de veces: ", colta);
         console.log("mi l[i][i] vale ahorita: ", l[i][i]);
         console.log("mi i vale ahorita: ", i);
         if(l[i][i] === 0)
@@ -531,7 +529,6 @@ document.getElementById("botonEliminarColumna").addEventListener("click", functi
           {
             console.log("ya entré a este paso: ");
             var pivote = (l[j][i])/(l[i][i]);
-            console.log("ya repetí este paso esta cantidad de veces: ", colta);
             console.log("mi l[i][i] vale ahorita: ", l[i][i]);
             console.log("mi i vale ahorita: ", i);
           
@@ -542,7 +539,6 @@ document.getElementById("botonEliminarColumna").addEventListener("click", functi
             }
           }
         }
-        colta++;
       }
   
       // HAGO MI DIAGONAL PRINCIPAL 1'S
@@ -575,13 +571,7 @@ document.getElementById("botonEliminarColumna").addEventListener("click", functi
       //crea la tabla con la matriz Inversa
       crearTablaInversa(u);
 
-    }
-
-  // Crear la tabla con la matriz inversa
-      //crea la tabla con la matriz Inversa
-      crearTablaInversa(u);
-
-    }
+}
   
     // Crear la tabla con la matriz inversa
   
