@@ -645,62 +645,80 @@ document.getElementById("botonEliminarColumna").addEventListener("click", functi
     return matriz;
   }
 
-  //CALCULAR EL DETERMINANTE DE LA MATRIZ 
+// Función para calcular el determinante de una matriz
+ function calcularDeterminante() {
+  // Obtener la matriz
+  var matriz = crearMatriz();
 
-  function calcularDeterminante()
-  { 
-    // Obtener la matriz
-    var matriz = crearMatrizSec();
-  
-    // Validar la matriz
-    if (!validarMatriz()) {
-      return;
-    }
-  
-    var n = matriz.length;
-    var m = matriz[0].length;
-    console.log("mi m vale: ", m);
-    console.log("mi m vale: ", n);
-    var det = 1;
+  // Validar la matriz
+  if (!validarMatriz()) {
+    return;
+  }
 
-    if (n !== m)    //UN DETERMINANTE SOLO SE PUEDE OBTENER EN MATRICES CUADRADAS.
-    {
-      alert("La matriz debe ser cuadrada para calcular el determinante.");
-      return;
+  var n = matriz.length;
+  var m = matriz[0].length;
+
+  // Verificar si la matriz es cuadrada
+  if (n !== m) {
+    alert("La matriz debe ser cuadrada para calcular el determinante.");
+    return;
+  }
+
+  var det = determinanteRecursivo(matriz);
+
+  // Mostrar el resultado
+  alert("El determinante de la matriz es: " + det);
+}
+
+// Función recursiva para calcular el determinante de una matriz
+function determinanteRecursivo(matriz) {
+  var n = matriz.length;
+
+  // Caso base: matriz de 1x1
+  if (n === 1) {
+    return matriz[0][0][0] / matriz[0][0][1]; // Devolver la fracción como resultado
+  }
+
+  var det = 0;
+
+  // Obtener el primer renglón de la matriz
+  var primerRenglon = matriz[0];
+
+  for (var j = 0; j < n; j++) {
+    // Calcular el cofactor de la submatriz eliminando el primer renglón y la columna j
+    var submatriz = obtenerSubmatriz(matriz, 0, j);
+    var cofactor = primerRenglon[j][0] / primerRenglon[j][1] * determinanteRecursivo(submatriz);
+
+    // Sumar o restar el cofactor al determinante dependiendo del índice de la columna
+    det += (j % 2 === 0) ? cofactor : -cofactor;
+  }
+
+  return det;
+}
+
+// Función para obtener una submatriz eliminando un renglón y una columna específicos
+function obtenerSubmatriz(matriz, iEliminar, jEliminar) {
+  var submatriz = [];
+  var n = matriz.length;
+
+  for (var i = 1; i < n; i++) {
+    var fila = [];
+    for (var j = 0; j < n; j++) {
+      if (j !== jEliminar) {
+        fila.push(matriz[i][j]);
+      }
     }
-    else                      //PODEMOS EMPEZAR A CALCULAR EL DETERMINANTE
-    {
-      if(filas === 2 && columnas === 2)    //ESTE ES EL PASO BASE, SABEMOS COMO CALCULAR UN
-      {                                    //DETERMINANTE DE 2X2
-        return (((matriz[0][0][0] * matriz[1][1][0]) - (matriz[0][1][0] * matriz[1][0][0])));
-      }
-      else   //filas !== 2 && columnas !== 2, TENEMOS UNA MATRIZ DE 3X3 O DE 5X5 O ASÍ
-      {
-            // Realizar la eliminación de Gauss-Jordan para convertir la matriz a una forma escalonada
-        for (var j = 0; j < n - 1; j++) 
-        {
-          for (var i = j + 1; i < n; i++) 
-          {
-            var ratio = matriz[i][j][0] / matriz[j][j][0];
-            for (var k = j; k < n; k++) 
-            {
-              matriz[i][k][0] -= ratio * matriz[j][k][0];
-              matriz[i][k][1] = matriz[j][k][1]; // Mantener el denominador igual
-            }
-          }
-        }
-  
-        // Calcular el determinante multiplicando los elementos diagonales
-        for (var i = 0; i < n; i++) 
-        {
-          det *= matriz[i][i][0] / matriz[i][i][1];
-        }
-  
-        // Mostrar el resultado
-        alert("El determinante de la matriz es: " + Math.round(det));
-      }
+    if (i !== iEliminar) {
+      submatriz.push(fila);
     }
   }
+
+  return submatriz;
+}
+
+
+
+
 
 //ESTO DE ACÁ LO ENCONTRÉ EN INTERNET, Y LO USÉ PARA OBTENER LOS NUMERADORES Y DENOMINADORES Y PODER MOSTRAR FRACCIONES.
 
