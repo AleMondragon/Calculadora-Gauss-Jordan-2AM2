@@ -474,7 +474,6 @@ document.getElementById("botonEliminarColumna").addEventListener("click", functi
       var j;
       var i;
       var z;
-      var p = [];
   
       // Hace ceros abajo
      
@@ -485,6 +484,7 @@ document.getElementById("botonEliminarColumna").addEventListener("click", functi
       }
       else
       {
+        alert("estoy calculando la inversa, dame chance, no te me desesperes mi vida");
         //METE LAS ENTRADAS DEL USUARIO EN UNA MATRIZ VACÍA DE UN LADO (AGREGA UNAS COLUMNAS)
         for(k = 0; k < l.length; k++)     //LEE FILAS
         {
@@ -511,16 +511,11 @@ document.getElementById("botonEliminarColumna").addEventListener("click", functi
         }
       }
       
-      var colta = 0;
       // Resolver la matriz mediante Gauss-Jordan para nuestra matriz "l[a][b]"
       for(i = 0 ; i < l.length ; i++)
       {
-        console.log("ya repetí este paso esta cantidad de veces: ", colta);
-        console.log("mi l[i][i] vale ahorita: ", l[i][i]);
-        console.log("mi i vale ahorita: ", i);
         if(l[i][i] === 0)
         {
-          console.log("división entre 0");
           alert("división por cero");
         }
 
@@ -529,20 +524,14 @@ document.getElementById("botonEliminarColumna").addEventListener("click", functi
           //CREO MI PIVOTE
           if(i !== j)
           {
-            console.log("ya entré a este paso: ");
             var pivote = (l[j][i])/(l[i][i]);
-            console.log("ya repetí este paso esta cantidad de veces: ", colta);
-            console.log("mi l[i][i] vale ahorita: ", l[i][i]);
-            console.log("mi i vale ahorita: ", i);
           
             for(z = 0; z < ((l[0].length)) ; z++)
             {
-              console.log("ya entré a este paso interesante asumakina: ");
               l[j][z] = l[j][z] - (pivote * l[i][z]);
             }
           }
         }
-        colta++;
       }
   
       // HAGO MI DIAGONAL PRINCIPAL 1'S
@@ -563,17 +552,40 @@ document.getElementById("botonEliminarColumna").addEventListener("click", functi
     {
       for(let r = 0 ; r < (l[0].length)/2 ; r++)        //LEE COLUMNAS
       {
-        //var fraccion = decimalAFraccion(l[s][fil], 1);
-        //l[s][fil] = fraccion;
-        u[s][r][0] = l[s][fil];
+        if(l[s][fil] === 0)
+        {
+          u[s][r][0] = l[s][fil];
+        }
+
+        else if(l[s][fil] < 0)
+        {
+          l[s][fil] = l[s][fil] * (-1);
+          var v = decToFrac( l[s][fil] );
+          var fraccion = decimalAFraccion(v[0], v[1]);
+          l[s][fil] = fraccion;
+          u[s][r][0] = l[s][fil] * -1;
+          if(isNaN(u[s][r][0]))
+          {
+            u[s][r][0] = '-' + l[s][fil];
+          }
+        }
+
+        else
+        {
+          var v = decToFrac( l[s][fil] );
+          var fraccion = decimalAFraccion(v[0], v[1]);
+          l[s][fil] = fraccion;
+          u[s][r][0] = l[s][fil];
+        }
+        
         fil++;
         if(fil === l[0].length)
-        {
-          fil = (l[0].length)/2;
-        }
+          {
+            fil = (l[0].length)/2;
+          }
       }
     }
-
+      alert("ya la calculé papito hermoso, revisa la parte inferior");
       //crea la tabla con la matriz Inversa
       crearTablaInversa(u);
 
@@ -592,7 +604,8 @@ document.getElementById("botonEliminarColumna").addEventListener("click", functi
       {
 
         var filaResultado = cuerpoTablaResultado.insertRow();
-        for (var j = 0; j < (matriz[i].length); j++) 
+        //for (var j = 0; j < (matriz[i].length); j++) 
+        for (var j = 0; j < (matriz[0].length); j++)
         {
           var celdaResultado = filaResultado.insertCell();
           var entradaResultado = document.createElement("input");
@@ -600,14 +613,15 @@ document.getElementById("botonEliminarColumna").addEventListener("click", functi
           entradaResultado.name = "resultado[" + i + "][" + j + "]";
       
           // Convertir el número a fracción
-          var fraccion = decimalAFraccion(matriz[i][j][0], matriz[i][j][1]);
+          //var fraccion = decimalAFraccion(matriz[i][j][0], matriz[i][j][1]);
       
-          entradaResultado.value = fraccion;
+          entradaResultado.value = matriz[i][j][0];
       
           celdaResultado.appendChild(entradaResultado);
         }
       }
     }
+    
 
 
   //CREAMOS UNA MATRIZ VACÍA PARA PODER OBTENER LA INVERSA Y EL DETERMINANTE
