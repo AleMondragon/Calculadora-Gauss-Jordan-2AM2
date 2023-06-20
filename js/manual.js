@@ -455,11 +455,32 @@ document.getElementById("botonEliminarColumna").addEventListener("click", functi
       return matriz;
     }
 
-//COMENZAMOS A CÁLCULAR LA INVERSA
+    //COMENZAMOS A CÁLCULAR LA INVERSA
 
     function inversa()
     {
-  
+      
+      // Validar la matriz
+      if (!validarMatriz()) 
+      {
+        return;
+      }
+      var tablaResultado = document.getElementById("tablaInversa");
+      while (tablaResultado.rows.length > 0)  
+      {
+        tablaResultado.deleteRow(0);
+      }
+      var inputsResultado = document.querySelectorAll("#tablaInversa input[type='text']");
+      inputsResultado.forEach(function(input) {
+      input.value = "";
+      });
+      let view = document.getElementsByClassName("infosec2");
+      for (var i = 0; i < view.length; i++)  
+      {
+        view[i].style.display = "flex";
+      }
+
+      
       // Jalar los datos de las entradas para la matriz que calculamos con Gauss-Jordan
       var matriz = crearMatrizSec();
       var u = matriz;
