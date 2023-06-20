@@ -407,51 +407,53 @@ document.getElementById("botonEliminarColumna").addEventListener("click", functi
 
 
   // Crear la matriz que solo tiene las variables a operar, ommitiendo la columna de resultados.
-  function crearMatrizSec() 
-  {
-    var matriz = [];
-    var filas = document.getElementById("matriz").rows;
-  
-    for (var i = 0; i < filas.length; i++) 
+    function crearMatrizSec() 
     {
-      var celdas = filas[i].cells;
-      matriz[i] = [];
-  
-      for (var j = 0; j < celdas.length - 1; j++) 
+      var matriz = [];
+      var filas = document.getElementById("matriz").rows;
+    
+      for (var i = 0; i < filas.length; i++) 
       {
-        var valor = celdas[j].childNodes[0].value;
-  
-        // Validar si se ingresó una letra
-        if (isNaN(parseFloat(valor))) 
+        var celdas = filas[i].cells;
+        matriz[i] = [];
+    
+        for (var j = 0; j < celdas.length - 1; j++) 
         {
-          alert("MATRIZ INVÁLIDA: Se ha ingresado una letra. Por favor, verifique que se introdujeron solo números en las celdas.");
-          return null;
-        }
-  
-        // Convertir el valor a fracción si es necesario
-        if (valor.indexOf("/") >= 0) 
-        {
-          // Si es una fracción, convertirla a decimal y luego a fracción nuevamente
-          var partes = valor.split("/");
-          var numerador = parseFloat(partes[0]);
-          var denominador = parseFloat(partes[1]);
-          if (isNaN(parseFloat(denominador))) 
+          var valor = celdas[j].childNodes[0].value;
+    
+          // Validar si se ingresó una letra
+          if (isNaN(parseFloat(valor))) 
           {
             alert("MATRIZ INVÁLIDA: Se ha ingresado una letra. Por favor, verifique que se introdujeron solo números en las celdas.");
             return null;
           }
-          valor = [numerador, denominador];
-        } 
-        else 
-        {
-          valor = [parseFloat(valor), 1];
+          
+          // Convertir el valor a fracción si es necesario
+          if (valor.indexOf("/") >= 0) 
+          {
+
+            // Si es una fracción, convertirla a decimal y luego a fracción nuevamente
+            var partes = valor.split("/");
+            var numerador = parseFloat(partes[0]);
+            var denominador = parseFloat(partes[1]);
+            if (isNaN(parseFloat(denominador))) 
+            {
+              alert("MATRIZ INVÁLIDA: Se ha ingresado una letra. Por favor, verifique que se introdujeron solo números en las celdas.");
+              return null;
+            }
+            var operacion = numerador/denominador;
+            valor = [operacion, 1];
+          } 
+          else 
+          {
+            valor = [parseFloat(valor), 1];
+          }
+    
+          matriz[i][j] = valor;
         }
-  
-        matriz[i][j] = valor;
       }
+      return matriz;
     }
-    return matriz;
-  }
 
 //COMENZAMOS A CÁLCULAR LA INVERSA
 
@@ -669,15 +671,41 @@ function calcularDeterminante() {
   var det = determinanteRecursivo(matriz);
 
   // Mostrar el resultado
-  alert("El determinante de la matriz es: " + Math.round(det));
+  if(det === 0)
+        {
+          return alert("El determinante de la matriz es: " + det);
+        }
+
+        else if(det < 0)
+        {
+          det = det * (-1);
+          var v = decToFrac( det );
+          var fraccion = decimalAFraccion(v[0], v[1]);
+          det = fraccion * -1;
+          if(isNaN(Number(det)))
+          {
+            det = '-' + fraccion;
+          }
+          return alert("El determinante de la matriz es: " + det);
+        }
+
+        else
+        {
+          var v = decToFrac( det );
+          var fraccion = decimalAFraccion(v[0], v[1]);
+          det = fraccion;
+          return alert("El determinante de la matriz es: " + det);
+        }
+      }
 }
 
 // Función recursiva para calcular el determinante de una matriz
-function determinanteRecursivo(matriz) {
+function determinanteRecursivo(matriz) 
+{
   var n = matriz.length;
   // Caso base: matriz de 1x1
   if (n === 1) {
-    return Math.round(matriz[0][0][0] / matriz[0][0][1]); // Devolver la fracción como resultado
+    return matriz[0][0][0] / matriz[0][0][1]; // Devolver la fracción como resultado
   }
 
   var det = 0;
@@ -694,7 +722,7 @@ function determinanteRecursivo(matriz) {
     det += (j % 2 === 0) ? cofactor : -cofactor;
   }
 
-  return Math.round(det);
+  return det;
 }
 
 // Función para obtener una submatriz eliminando un renglón y una columna específicos
