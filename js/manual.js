@@ -649,7 +649,7 @@ document.getElementById("botonEliminarColumna").addEventListener("click", functi
 
 // Función para calcular el determinante de una matriz
 
-function calcularDeterminante()
+/*function calcularDeterminante()
   { 
     // Obtener la matriz
     var matriz = crearMatrizSec();
@@ -754,15 +754,17 @@ function calcularDeterminante()
       }
         // Mostrar el resultado
     }
-  }
+  }*/
 
-/*function calcularDeterminante() {
+function calcularDeterminante() 
+{
   // Obtener la matriz
   var matriz = crearMatrizSec();
   
 
   // Validar la matriz
-  if (!validarMatriz()) {
+  if (!validarMatriz()) 
+  {
     return;
   }
 
@@ -770,7 +772,8 @@ function calcularDeterminante()
   var m = matriz[0].length;
   
   // Verificar si la matriz es cuadrada
-  if (n !== m) {
+  if (n !== m) 
+  {
     alert("La matriz debe ser cuadrada para calcular el determinante.");
     return;
   }
@@ -779,31 +782,31 @@ function calcularDeterminante()
 
   // Mostrar el resultado
   if(det === 0)
-        {
-          return alert("El determinante de la matriz es: " + det);
-        }
+  {
+    return alert("El determinante de la matriz es: " + det);
+  }
 
-        else if(det < 0)
-        {
-          det = det * (-1);
-          var v = decToFrac( det );
-          var fraccion = decimalAFraccion(v[0], v[1]);
-          det = fraccion * -1;
-          if(isNaN(Number(det)))
-          {
-            det = '-' + fraccion;
-          }
-          return alert("El determinante de la matriz es: " + det);
-        }
-
-        else
-        {
-          var v = decToFrac( det );
-          var fraccion = decimalAFraccion(v[0], v[1]);
-          det = fraccion;
-          return alert("El determinante de la matriz es: " + det);
-        }
+    else if(det < 0)
+    {
+      det = det * (-1);
+      var v = decToFrac( det );
+      var fraccion = decimalAFraccion(v[0], v[1]);
+      det = fraccion * -1;
+      if(isNaN(Number(det)))
+      {
+        det = '-' + fraccion;
       }
+      return alert("El determinante de la matriz es: " + det);
+    }
+
+    else
+    {
+      var v = decToFrac( det );
+      var fraccion = decimalAFraccion(v[0], v[1]);
+      det = fraccion;
+      return alert("El determinante de la matriz es: " + det);
+    }
+  
 }
 
 // Función recursiva para calcular el determinante de una matriz
@@ -811,7 +814,8 @@ function determinanteRecursivo(matriz)
 {
   var n = matriz.length;
   // Caso base: matriz de 1x1
-  if (n === 1) {
+  if (n === 1) 
+  {
     return matriz[0][0][0] / matriz[0][0][1]; // Devolver la fracción como resultado
   }
 
@@ -820,7 +824,8 @@ function determinanteRecursivo(matriz)
   // Obtener el primer renglón de la matriz
   var primerRenglon = matriz[0];
 
-  for (var j = 0; j < n; j++) {
+  for (var j = 0; j < n; j++) 
+  {
     // Calcular el cofactor de la submatriz eliminando el primer renglón y la columna j
     var submatriz = obtenerSubmatriz(matriz, 0, j);
     var cofactor = primerRenglon[j][0] / primerRenglon[j][1] * determinanteRecursivo(submatriz);
@@ -830,7 +835,7 @@ function determinanteRecursivo(matriz)
   }
 
   return det;
-}*/
+}
 
 // Función para obtener una submatriz eliminando un renglón y una columna específicos
 function obtenerSubmatriz(matriz, iEliminar, jEliminar) {
