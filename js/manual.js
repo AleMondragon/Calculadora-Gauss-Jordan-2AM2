@@ -649,7 +649,114 @@ document.getElementById("botonEliminarColumna").addEventListener("click", functi
 
 // Función para calcular el determinante de una matriz
 
-function calcularDeterminante() {
+function calcularDeterminante()
+  { 
+    // Obtener la matriz
+    var matriz = crearMatrizSec();
+  
+    // Validar la matriz
+    if (!validarMatriz()) 
+    {
+      return;
+    }
+  
+    var n = matriz.length;
+    var m = matriz[0].length;
+    var det = 1;
+
+    if (n !== m)    //UN DETERMINANTE SOLO SE PUEDE OBTENER EN MATRICES CUADRADAS.
+    {
+      alert("La matriz debe ser cuadrada para calcular el determinante.");
+      return;
+    }
+
+    else                      //PODEMOS EMPEZAR A CALCULAR EL DETERMINANTE
+    {
+      if(n === 2 && m === 2)    //ESTE ES EL PASO BASE, SABEMOS COMO CALCULAR UN
+      {                                    //DETERMINANTE DE 2X2
+        det = (((matriz[0][0][0] * matriz[1][1][0]) - (matriz[0][1][0] * matriz[1][0][0])));
+        if(det === 0)
+        {
+          return alert("El determinante de la matriz es: " + det);
+        }
+
+        else if(det < 0)
+        {
+          det = det * (-1);
+          var v = decToFrac( det );
+          var fraccion = decimalAFraccion(v[0], v[1]);
+          det = fraccion * -1;
+          if(isNaN(Number(det)))
+          {
+            det = '-' + fraccion;
+          }
+          return alert("El determinante de la matriz es: " + det);
+        }
+
+        else
+        {
+          var v = decToFrac( det );
+          var fraccion = decimalAFraccion(v[0], v[1]);
+          det = fraccion;
+          return alert("El determinante de la matriz es: " + det);
+        }
+      }
+
+      else   //filas !== 2 && columnas !== 2, TENEMOS UNA MATRIZ DE 3X3 O DE 5X5 O ASÍ
+      {
+            // Realizar la eliminación de Gauss-Jordan para convertir la matriz a una forma escalonada
+        for (var j = 0; j < n - 1; j++) 
+        {
+          for (var i = j + 1; i < n; i++) 
+          {
+            var ratio = matriz[i][j][0] / matriz[j][j][0];
+            for (var k = j; k < n; k++) 
+            {
+              matriz[i][k][0] -= ratio * matriz[j][k][0];
+              matriz[i][k][1] = matriz[j][k][1]; // Mantener el denominador igual
+            }
+          }
+        }
+  
+        // Calcular el determinante multiplicando los elementos diagonales
+        for (var i = 0; i < n; i++) 
+        {
+          det *= matriz[i][i][0] / matriz[i][i][1];
+        }
+
+        //Decide si el determinante debería de ser una Fracción o un número entero
+        
+        if(det === 0)
+        {
+          return alert("El determinante de la matriz es: " + det);
+        }
+
+        else if(det < 0)
+        {
+          det = det * (-1);
+          var v = decToFrac( det );
+          var fraccion = decimalAFraccion(v[0], v[1]);
+          det = fraccion * -1;
+          if(isNaN(Number(det)))
+          {
+            det = '-' + fraccion;
+          }
+          return alert("El determinante de la matriz es: " + det);
+        }
+
+        else
+        {
+          var v = decToFrac( det );
+          var fraccion = decimalAFraccion(v[0], v[1]);
+          det = fraccion;
+          return alert("El determinante de la matriz es: " + det);
+        }
+      }
+        // Mostrar el resultado
+    }
+  }
+
+/*function calcularDeterminante() {
   // Obtener la matriz
   var matriz = crearMatrizSec();
   
@@ -723,7 +830,7 @@ function determinanteRecursivo(matriz)
   }
 
   return det;
-}
+}*/
 
 // Función para obtener una submatriz eliminando un renglón y una columna específicos
 function obtenerSubmatriz(matriz, iEliminar, jEliminar) {
