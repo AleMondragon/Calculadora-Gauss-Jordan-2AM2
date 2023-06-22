@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Gauss Jordan</title>
+    <!--Link al css, es necesario descargar el archivo css para que la página cargue con los archivos-->
+    <link rel="stylesheet" href="css/styles3.css">
+</head>
+<body>
+    <div class="PRINCIPAL">
+        <div class="inicio">
+            <h1>Calculadora Gauss Jordan</h1>
+            <div class="encabezado">
+                <nav>
+                    <!--Navegación-->
+                    <a class="boton1" href="index.html">Inicio</a>
+                    <a class="boton1" href="DD.html">Cargar Matriz</a>
+                    <a class="boton1" href="Manual.html">Introducir Matriz</a>
+                </nav>
+            </div>
+            <div class="main">
+                <!--Caja Principal-->
+                <div class="infosec1">
+                    <div id="lecturaEntrada">
+                        <h2>Cambio de base</h2>
+                        <h3>Introduce el número de columnas y filas manualmente</h3>
+                        <form>
+                            <label for="rows">Cantidad de ecuaciones: </label>
+                            <input class="inputp"type="text" id="filas" name="filas" min="1"><br><br>
+                            <label for="cols">Cantidad de variables contando la de resultado:</label>
+                            <input class="inputp" type="text" id="columnas" name="columnas" min="1"><br><br>
+                            <button  class="boton1" id="crearPrimerTabla" type="button" onclick="crearTabla()">Validar matriz</button>
+                        </form>
+                    </div>
+                    <br>
+                    <table id="matriz"></table>
+                    <br>
+                    <div class="Matrizab">
+                        <a class="boton1 info" id="botonmatrizA" href="#">Matriz A</a>
+                        <a class="boton1 info" id="botonmatrizB" href="#">Matriz B</a>
+                    </div>
+                    <span class="calculos">
+                        <a class="boton1" href="#" onclick="calcular()">Calcular</a>
+                        <a class="boton1 info" id="botonAgregarFila" href="#">Agregar fila</a>
+                        <a class="boton1 info" id="botonAgregarColumna" href="#">Agregar columna</a>
+                        <a class="boton1 info" id="botonEliminarColumna" href="#">Eliminar columna</a>
+                        <a class="boton1 info" id="botonEliminarFila" href="#">Eliminar fila</a>
+                        <a class="boton1" href="#" onclick="borrarNumeros()">Borrar</a>
+                        
+                    </span>
+                </div>
+                <div class="infosec2">
+                    <h2>Matriz Resultado</h2>
+                    <section class="mresultante">
+                        <!--Aquí se tiene que mostrar la matriz resultado-->
+                        <table id="tablaResultado"></table>
+                    </section>
+                    <span>
+                        <a class="boton1" id="botonfinal" href="#" onclick="borrarDatos()">Finalizar</a>
+                        <!-- Este botón finaliza la apliación y te lleva al index -->
+                    </span>
+                </div>
+                <!--a class="boton2" href="#" onclick="determinante()">Determinante</a>
+                <a class="boton1" href="#" onclick="inversa()">Inversa</a-->
+                <div class="infosec2">
+                    <h2>Matriz Inversa</h2>
+                    <section class="mresultante">
+                        <table id="tablaInversa"></table>
+                    </section>
+                </div>
+            </div>             
+        </div>                                 
+    </div>
+    <script src="js/cb.js"></script>
+</body>
+</html>
