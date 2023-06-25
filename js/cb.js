@@ -189,34 +189,6 @@ function crearTabla() {
         }
       }
     }
-  
-    function crearTablaResultado2(matriz) 
-    {
-      // Obtener la tabla y su cuerpo
-      var tablaResultado = document.getElementById("tablaRes");
-      var cuerpoTablaResultado = tablaResultado.createTBody();
-
-     var f = matriz.length;
-     var k = matriz[0].length;
-  
-      // Crear cada fila y sus celdas
-      for (var i = 0; i < matriz.length; i++) {
-      var filaResultado = cuerpoTablaResultado.insertRow();
-      for (var j = matriz.length; j < matriz[i].length; j++) {
-        var celdaResultado = filaResultado.insertCell();
-        var entradaResultado = document.createElement("input");
-        entradaResultado.type = "text";
-        entradaResultado.name = "resultado[" + i + "][" + j + "]";
-          
-          f++;
-          k++;
-  
-          entradaResultado.value = matriz[i][j];
-    
-          celdaResultado.appendChild(entradaResultado);
-        }
-      }
-    }
 
   // Función para convertir un decimal a fracción
   
