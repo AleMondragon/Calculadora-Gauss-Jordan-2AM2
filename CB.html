@@ -1,13 +1,11 @@
 <!DOCTYPE html>
-
-<html lang="en">
+<html lang="es-MX">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculadora Gauss Jordan</title>
-    <!--Link al css, es necesario descargar el archivo css para que la página cargue con los archivos-->
+    <meta name="author" content="grupo 2AM2 ESCOM-IPN">
     <link rel="stylesheet" href="css/styles3.css">
+    <title>Cambio de Base</title>
 </head>
 <body>
     <div class="PRINCIPAL">
@@ -28,9 +26,9 @@
                         <h2>Cambio de base</h2>
                         <h3>Introduce el número de columnas y filas manualmente</h3>
                         <form>
-                            <label for="rows">Cantidad de ecuaciones: </label>
+                            <label for="rows">Cantidad de Vectores en la Matriz A: </label>
                             <input class="inputp"type="text" id="filas" name="filas" min="1"><br><br>
-                            <label for="cols">Cantidad de variables contando la de resultado:</label>
+                            <label for="cols">Cantidad de Vectores en la Matriz B: </label>
                             <input class="inputp" type="text" id="columnas" name="columnas" min="1"><br><br>
                             <button  class="boton1" id="crearPrimerTabla" type="button" onclick="crearTabla()">Validar matriz</button>
                         </form>
@@ -39,8 +37,8 @@
                     <table id="matriz"></table>
                     <br>
                     <div class="Matrizab">
-                        <a class="boton1 info" id="botonmatrizA" href="#">Matriz A</a>
-                        <a class="boton1 info" id="botonmatrizB" href="#">Matriz B</a>
+                        <a class="boton1 info" id="botonmatrizA" href="#" onclick="gramSchmidtA()">Base Ortogonal para la Matriz A</a>
+                        <a class="boton1 info" id="botonmatrizB" href="#" onclick="gramSchmidtB()">Base Ortogonal para la Matriz B</a>
                     </div>
                     <span class="calculos">
                         <a class="boton1" href="#" onclick="calcular()">Calcular</a>
@@ -53,10 +51,13 @@
                     </span>
                 </div>
                 <div class="infosec2">
-                    <h2>Matriz Resultado</h2>
+                    <h2>Matriz de Cambio de Base</h2>
                     <section class="mresultante">
                         <!--Aquí se tiene que mostrar la matriz resultado-->
                         <table id="tablaResultado"></table>
+                        <br/>
+                        <br/>
+                        <table id="tablaRes"></table>
                     </section>
                     <span>
                         <a class="boton1" id="botonfinal" href="#" onclick="borrarDatos()">Finalizar</a>
@@ -66,9 +67,15 @@
                 <!--a class="boton2" href="#" onclick="determinante()">Determinante</a>
                 <a class="boton1" href="#" onclick="inversa()">Inversa</a-->
                 <div class="infosec2">
-                    <h2>Matriz Inversa</h2>
+                    <h2>Matriz Ortogonal a la Base B1</h2>
                     <section class="mresultante">
-                        <table id="tablaInversa"></table>
+                        <table id="tablaA"></table>
+                    </section>
+                </div>
+                <div class="infosec2">
+                    <h2>Matriz Ortogonal a la Base B2</h2>
+                    <section class="mresultante">
+                        <table id="tablaB"></table>
                     </section>
                 </div>
             </div>             
