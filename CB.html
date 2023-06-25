@@ -26,9 +26,9 @@
                         <h2>Cambio de base</h2>
                         <h3>Introduce el número de columnas y filas manualmente</h3>
                         <form>
-                            <label for="rows">Cantidad de Vectores en la Matriz A: </label>
+                            <label for="rows">Cantidad de filas para cada matriz </label>
                             <input class="inputp"type="text" id="filas" name="filas" min="1"><br><br>
-                            <label for="cols">Cantidad de Vectores en la Matriz B: </label>
+                            <label for="cols">Cantidad de columnas para cada matriz </label>
                             <input class="inputp" type="text" id="columnas" name="columnas" min="1"><br><br>
                             <button  class="boton1" id="crearPrimerTabla" type="button" onclick="crearTabla()">Validar matriz</button>
                         </form>
@@ -37,8 +37,8 @@
                     <table id="matriz"></table>
                     <br>
                     <div class="Matrizab">
-                        <a class="boton1 info" id="botonmatrizA" href="#" onclick="gramSchmidtA()">Base Ortogonal A</a>
-                        <a class="boton1 info" id="botonmatrizB" href="#" onclick="gramSchmidtB()">Base Ortogonal B</a>
+                        <a class="boton1 info" id="botonmatrizA" href="#" onclick="gramSchmidtA()">Gram-Schmidt A</a>
+                        <a class="boton1 info" id="botonmatrizB" href="#" onclick="gramSchmidtB()">Gram-Schmidt B</a>
                     </div>
                     <span class="calculos">
                         <a class="boton1" href="#" onclick="calcular()">Calcular</a>
