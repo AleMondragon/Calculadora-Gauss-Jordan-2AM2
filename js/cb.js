@@ -574,7 +574,7 @@ function crearTabla() {
       var celdas = filas[i].cells;
       matriz[i] = [];
       d = celdas.length - filas.length;
-      k = celdas.length%d
+      k = celdas.length%m
       if(d !== filas.length)
       {
             d = d - 1;    
@@ -758,6 +758,7 @@ function gramSchmidt(baseOriginal)
       }
       else
       {
+        console.log("aquí es normal");
         var v = decToFrac( baseOrtogonalizada[i][j] );
         var fraccion = decimalAFraccion(v[0], v[1]);
         baseOrtogonalizada[i][j] = fraccion;
@@ -766,18 +767,32 @@ function gramSchmidt(baseOriginal)
       //baseOrtogonalizada[i][j] = fraccion;
     }
   }
-
-  //CREAMOS UN NUEVO ARREGLO PARA NUESTROS VECTORES Y OBTENER EL RESULTADO BONITO
-  for(let u = 0 ; u < d; u++)
-  {
-    monos[u] = [];
-    for(let v = 0; v < x; v++)
+    
+    //CREAMOS UN NUEVO ARREGLO PARA NUESTROS VECTORES Y NO ANDAR BATALLANDO
+    for(let u = 0 ; u < d; u++)
     {
-        monos[u][v] = baseOrtogonalizada[v][u];
+      monos[u] = [];
+      //for(let v = 0; v < n; v++)
+      for(let v = 0; v < x; v++)
+      {
+        if(u === x)
+        {
+            for(let s = 0; s < x; s++)
+            {
+                monos[u][v] = baseOrtogonalizada[u][s];
+                monos[u][v] = monos[u][v];
+                console.log("monos", monos[u][v]);
+            }
+        }
+        else
+        {
+            monos[u][v] = baseOrtogonalizada[v][u];
+        }
+      }
     }
-  }
 
-  
+    console.log("monos", monos);
+  console.log("baseOrtogonalizada", baseOrtogonalizada);
   //ACABA LA PRUEBA PARA VOLVER FRACCIONES
   return monos;
 }
@@ -785,7 +800,6 @@ function gramSchmidt(baseOriginal)
 //GRAM SCHMIDT PARA A
 function gramSchmidtA()
 {
-    alert("este proceso lleva tiempo bebesito; esperame a que termine");
    // Validar la matriz
    if (!validarMatriz()) 
    {
@@ -813,7 +827,6 @@ for (var i = 0; i < view.length; i++)
   //PRIMERO OBTIENE LA MATRIZ QUE SALIÓ DE HACER GRAM SCHMIDT Y LA GUARDA EN A
   var A = gramSchmidt(baseA);
   let n = A.length;
-  alert("listo papito hermoso :D revisa más abajito");
   crearTablaResultadoA(A);
 }
 
@@ -821,7 +834,6 @@ for (var i = 0; i < view.length; i++)
 
 function gramSchmidtB()
 {
-    alert("este proceso lleva tiempo bebesito; esperame a que termine");
    // Validar la matriz
    if (!validarMatriz()) 
    {
@@ -849,7 +861,6 @@ for (var i = 0; i < view.length; i++)
   //PRIMERO OBTIENE LA MATRIZ QUE SALIÓ DE HACER GRAM SCHMIDT Y LA GUARDA EN A
   var B = gramSchmidt(baseB);
   let n = B.length;
-  alert("listo papito hermoso :D revisa más abajito");
   crearTablaResultadoB(B);
 }
 
