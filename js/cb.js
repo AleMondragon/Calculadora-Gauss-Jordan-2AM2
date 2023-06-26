@@ -764,7 +764,6 @@ function gramSchmidt(baseOriginal)
         baseOrtogonalizada[i][j] = fraccion;
         baseOrtogonalizada[i][j] = baseOrtogonalizada[i][j];
       }
-      //baseOrtogonalizada[i][j] = fraccion;
     }
   }
     
@@ -781,7 +780,6 @@ function gramSchmidt(baseOriginal)
             {
                 monos[u][v] = baseOrtogonalizada[u][s];
                 monos[u][v] = monos[u][v];
-                console.log("monos", monos[u][v]);
             }
         }
         else
@@ -791,8 +789,6 @@ function gramSchmidt(baseOriginal)
       }
     }
 
-    console.log("monos", monos);
-  console.log("baseOrtogonalizada", baseOrtogonalizada);
   //ACABA LA PRUEBA PARA VOLVER FRACCIONES
   return monos;
 }
@@ -800,6 +796,7 @@ function gramSchmidt(baseOriginal)
 //GRAM SCHMIDT PARA A
 function gramSchmidtA()
 {
+    alert("este proceso lleva tiempo, dame chance BB");
    // Validar la matriz
    if (!validarMatriz()) 
    {
@@ -827,6 +824,7 @@ for (var i = 0; i < view.length; i++)
   //PRIMERO OBTIENE LA MATRIZ QUE SALIÓ DE HACER GRAM SCHMIDT Y LA GUARDA EN A
   var A = gramSchmidt(baseA);
   let n = A.length;
+    alert("listo papito :D revisa la parte de abajo");
   crearTablaResultadoA(A);
 }
 
@@ -834,6 +832,7 @@ for (var i = 0; i < view.length; i++)
 
 function gramSchmidtB()
 {
+    alert("este proceso lleva tiempo, dame chance BB");
    // Validar la matriz
    if (!validarMatriz()) 
    {
@@ -861,6 +860,7 @@ for (var i = 0; i < view.length; i++)
   //PRIMERO OBTIENE LA MATRIZ QUE SALIÓ DE HACER GRAM SCHMIDT Y LA GUARDA EN A
   var B = gramSchmidt(baseB);
   let n = B.length;
+    alert("listo papito :D revisa la parte de abajo");
   crearTablaResultadoB(B);
 }
 
